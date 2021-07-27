@@ -1,4 +1,4 @@
-package com.hiperium.tests.java.unit.three;
+package com.hiperium.java.cert.prep.unit.three;
 
 public class NumericPromotion {
 

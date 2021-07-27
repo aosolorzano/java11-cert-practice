@@ -1,4 +1,4 @@
-package com.hiperium.tests.java.unit.two;
+package com.hiperium.java.cert.prep.unit.two;
 
 public class Variables {
 

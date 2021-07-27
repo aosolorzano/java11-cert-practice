@@ -1,6 +1,6 @@
-package com.hiperium.tests.java.unit.one.packageb;
+package com.hiperium.java.cert.prep.unit.one.packageb;
 
-import com.hiperium.tests.java.unit.one.packagea.ClassA;
+import com.hiperium.java.cert.prep.unit.one.packagea.ClassA;
 
 public class ClassB {
 

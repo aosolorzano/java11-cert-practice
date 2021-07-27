@@ -1,11 +1,11 @@
-package com.hiperium.tests.java.unit.four;
+package com.hiperium.java.cert.prep.unit.four;
 
 public class FlowControl {
 
     public static void main(String[] args) {
-        var dayOfTheWeek = 5;
-        // var dayOfTheWeek = 6;
-        // var dayOfTheWeek = 0;
+        var dayOfTheWeek = 5; // PRINTS Weekday Saturday
+        // var dayOfTheWeek = 6; // PRINTS Saturday
+        // var dayOfTheWeek = 0; // PRINTS Sunday Weekday Saturday
         switch (dayOfTheWeek) {
             case 0:
                 System.out.println("Sunday");
