@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.unit.one;
+package com.hiperium.java.cert.prep.chapter.one;
 
 public class ClassInitializr {
     

@@ -1,6 +1,6 @@
-package com.hiperium.java.cert.prep.unit.two;
+package com.hiperium.java.cert.prep.chapter.two;
 
-public class Variables {
+public class DeclaringVariables {
 
     private static char code;
     private String _color$;
@@ -23,8 +23,8 @@ public class Variables {
     }
 
     public static void main(String[] args) {
-        var p = new Variables();
-        var q = new Variables();
+        var p = new DeclaringVariables();
+        var q = new DeclaringVariables();
         p._color$ = "green";
         p.age = 1400;
         p = q;
