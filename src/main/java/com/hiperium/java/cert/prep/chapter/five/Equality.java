@@ -14,8 +14,8 @@ public class Equality {
      * looking at the values inside.
      */
     public static void main(String[] args) {
-        //stringEquality();
-        //stringBuilderEquality();
+        stringEquality();
+        stringBuilderEquality();
         arraysEquality();
     }
 
@@ -50,7 +50,7 @@ public class Equality {
     }
 
     private static void arraysEquality() {
-        List<String> one = new ArrayList<String>();
+        List<String> one = new ArrayList<>();
         one.add("abc");
         List<String> two = new ArrayList<>();
         two.add("abc");
