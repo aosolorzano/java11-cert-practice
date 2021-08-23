@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.four;
+package com.hiperium.java.cert.prep.chapter.d;
 
 public class ForLoop {
 

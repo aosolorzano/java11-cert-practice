@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.time.DayOfWeek;
 
-public class ChapterFourTest {
+public class ChapterDTest {
 
     /**
      * Which statements, when inserted independently into the following blank, will cause the code to print

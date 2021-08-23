@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.three;
+package com.hiperium.java.cert.prep.chapter.c;
 
 public class NumericPromotion {
 

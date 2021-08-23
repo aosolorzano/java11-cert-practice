@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class ChapterSixTest {
+public class ChapterFTest {
 
     /**
      * How many lines does this code output?

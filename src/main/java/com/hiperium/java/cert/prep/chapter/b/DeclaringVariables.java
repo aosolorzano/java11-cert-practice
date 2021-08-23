@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.two;
+package com.hiperium.java.cert.prep.chapter.b;
 
 public class DeclaringVariables {
 
