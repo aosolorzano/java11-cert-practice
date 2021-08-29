@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.e;
+package com.hiperium.java.cert.prep.chapter._5;
 
 import java.util.ArrayList;
 import java.util.List;

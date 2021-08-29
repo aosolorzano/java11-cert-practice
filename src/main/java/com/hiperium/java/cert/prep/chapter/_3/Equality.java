@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.c;
+package com.hiperium.java.cert.prep.chapter._3;
 
 import java.io.File;
 

@@ -1,11 +1,11 @@
-package com.hiperium.java.cert.prep.tests;
+package com.hiperium.java.cert.prep.tests._4;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
 
-public class ChapterDTest {
+public class Chapter4Test {
 
     /**
      * Which statements, when inserted independently into the following blank, will cause the code to print

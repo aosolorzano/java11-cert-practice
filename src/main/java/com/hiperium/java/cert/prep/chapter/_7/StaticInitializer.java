@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.g;
+package com.hiperium.java.cert.prep.chapter._7;
 
 public class StaticInitializer {
 

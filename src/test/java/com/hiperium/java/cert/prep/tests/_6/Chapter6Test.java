@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.tests;
+package com.hiperium.java.cert.prep.tests._6;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class ChapterFTest {
+public class Chapter6Test {
 
     /**
      * How many lines does this code output?

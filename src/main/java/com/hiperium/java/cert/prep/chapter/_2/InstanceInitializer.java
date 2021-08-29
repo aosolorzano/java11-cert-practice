@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.b;
+package com.hiperium.java.cert.prep.chapter._2;
 
 public class InstanceInitializer {
 

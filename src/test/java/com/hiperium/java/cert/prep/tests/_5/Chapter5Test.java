@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.tests;
+package com.hiperium.java.cert.prep.tests._5;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ChapterETest {
+public class Chapter5Test {
 
     /**
      * What is output by the following code?

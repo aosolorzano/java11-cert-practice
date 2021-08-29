@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.chapter.f;
+package com.hiperium.java.cert.prep.chapter._6;
 
 import java.util.function.Predicate;
 
