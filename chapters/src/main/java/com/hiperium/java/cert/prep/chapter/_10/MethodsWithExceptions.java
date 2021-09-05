@@ -1,16 +1,24 @@
 package com.hiperium.java.cert.prep.chapter._10;
 
-class CanNotHopException extends Exception { }
-class CanNotRoarException extends RuntimeException { }
+class CanNotHopException extends Exception {
+}
+
+class CanNotRoarException extends RuntimeException {
+}
 
 interface Roar {
     void roar() throws CanNotHopException;
 }
 
 class Hopper {
-    public void hop() {}
-    public void hop2() throws CanNotHopException {}
-    public void hop3() throws Exception {}
+    public void hop() {
+    }
+
+    public void hop2() throws CanNotHopException {
+    }
+
+    public void hop3() throws Exception {
+    }
 }
 
 public class MethodsWithExceptions extends Hopper implements Roar {

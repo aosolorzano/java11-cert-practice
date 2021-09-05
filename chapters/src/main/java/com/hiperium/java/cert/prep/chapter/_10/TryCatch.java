@@ -1,12 +1,12 @@
 package com.hiperium.java.cert.prep.chapter._10;
 
-import java.io.IOException;
-
 class MyCloseableFileClass implements AutoCloseable {
     private final int num;
+
     public MyCloseableFileClass(int num) {
         this.num = num;
     }
+
     @Override // WE EXCLUDE THE EXCEPTION
     public void close() { // We can override method without throwing an Exception
         System.out.println("Closing without exception: " + this.num);
@@ -15,9 +15,11 @@ class MyCloseableFileClass implements AutoCloseable {
 
 class MyFileClass implements AutoCloseable {
     private final int num;
+
     public MyFileClass(int num) {
         this.num = num;
     }
+
     @Override
     public void close() throws Exception {
         System.out.println("Closing: " + this.num);
@@ -32,9 +34,9 @@ public class TryCatch {
         }
         // catch (Exception e) {} ERROR: if we add this catch, RuntimeException catch will not be reached.
         // catch (IOException e) {} ERROR: IOException is never thrown in the corresponding try block
-        catch (IllegalArgumentException e) {}
-        catch (StackOverflowError e) {}
-        catch (RuntimeException e) {
+        catch (IllegalArgumentException e) {
+        } catch (StackOverflowError e) {
+        } catch (RuntimeException e) {
             System.out.println("Not good...");
         }
         tryWithResources();

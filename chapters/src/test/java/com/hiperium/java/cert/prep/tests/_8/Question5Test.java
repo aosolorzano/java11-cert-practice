@@ -7,6 +7,7 @@ class Arthropod {
     protected void printName(long input) {
         System.out.println("Arthropod");
     }
+
     void printName(int input) {
         System.out.println("Spooky");
     }
@@ -33,7 +34,7 @@ public class Question5Test {
     @Test
     public void test() {
         Arthropod a = new Spider();
-        a.printName((short)4); // Spider integer
+        a.printName((short) 4); // Spider integer
         a.printName(4);  // Spider integer
         a.printName(5L); // Arthropod
         Assert.assertTrue(true);

@@ -5,7 +5,11 @@ import org.junit.Test;
 
 class Bird {
     int feathers = 0;
-    Bird(int x) { this.feathers = x; }
+
+    Bird(int x) {
+        this.feathers = x;
+    }
+
     Bird fly() {
         return new Bird(1);
     }
@@ -13,14 +17,20 @@ class Bird {
 
 class Parrot extends Bird {
     // int feathers = 10;
-    protected Parrot (int y) { super(y); }
+    protected Parrot(int y) {
+        super(y);
+    }
+
     protected Parrot fly() {
         return new Parrot(2);
     }
 }
 
 class Macaw extends Parrot {
-    public Macaw(int z) { super(z); }
+    public Macaw(int z) {
+        super(z);
+    }
+
     public Macaw fly() {
         return new Macaw(3);
     }
@@ -28,7 +38,7 @@ class Macaw extends Parrot {
 
 /**
  * Which statement about the following program is correct?
- *
+ * <p>
  * R./ The program compiles and prints 3.
  */
 public class Question21Test {

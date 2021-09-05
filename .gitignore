@@ -5,11 +5,16 @@ target/
 libs/
 tmp/
 node_modules/
+# module output directory
+# mods
 
-# OS Files #
+# Files #
 .DS_Store
 *~
 *.class
+**/*.class
+# Thumbnails
+._*
 
 # Package Files #
 *.war
@@ -24,16 +29,6 @@ rebel.xml
 Thumbs.db
 # Folder config file
 Desktop.ini
-
-######################
-# OSX
-######################
-.DS_Store
-.svn
-
-# Thumbnails
-._*
-
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
@@ -42,7 +37,6 @@ Desktop.ini
 # NetBeans
 ######################
 nbproject/
-build/
 nbbuild/
 dist/
 nbdist/

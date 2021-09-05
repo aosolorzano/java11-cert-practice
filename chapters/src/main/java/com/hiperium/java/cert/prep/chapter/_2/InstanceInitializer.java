@@ -7,7 +7,9 @@ public class InstanceInitializer {
 
     private int number = 3;
 
-    { System.out.println("***** Instance Initializer 1st Block *****"); }
+    {
+        System.out.println("***** Instance Initializer 1st Block *****");
+    }
 
     {
         System.out.println("***** Instance Initializer 2nd Block *****");

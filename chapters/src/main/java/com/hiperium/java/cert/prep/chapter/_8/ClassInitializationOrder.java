@@ -2,8 +2,13 @@ package com.hiperium.java.cert.prep.chapter._8;
 
 class GiraffeFamily {
 
-    static { System.out.print("A"); }   // FIRST
-    { System.out.print("B"); }          // THIRD
+    static {
+        System.out.print("A");
+    }   // FIRST
+
+    {
+        System.out.print("B");
+    }          // THIRD
 
     public GiraffeFamily(String name) { // FOURTH
         this(1);
@@ -13,6 +18,7 @@ class GiraffeFamily {
     public GiraffeFamily() {  // NEVER
         System.out.print("D");
     }
+
     public GiraffeFamily(int stripes) {  // FIFTH
         System.out.print("E");
     }
@@ -20,23 +26,38 @@ class GiraffeFamily {
 
 class Okapi extends GiraffeFamily {
 
-    static { System.out.print("F"); } // SECOND
+    static {
+        System.out.print("F");
+    } // SECOND
 
     public Okapi(int stripes) {
         super("sugar");
         System.out.print("G");
     }
 
-    { System.out.print("H"); } // SIXTH
+    {
+        System.out.print("H");
+    } // SIXTH
 }
 
 public class ClassInitializationOrder {
 
     private String name = "Best Zoo";
-    { System.out.println("First instance init block... var 'name' = " +  name); }
+
+    {
+        System.out.println("First instance init block... var 'name' = " + name);
+    }
+
     private static int COUNT;
-    static { System.out.println("Static init block... var 'COUNT' = " + COUNT); } // ======>>>>>> PRINTS FIRST
-    { COUNT++; System.out.println("Second instance init block... var 'COUNT' = " + COUNT); }
+
+    static {
+        System.out.println("Static init block... var 'COUNT' = " + COUNT);
+    } // ======>>>>>> PRINTS FIRST
+
+    {
+        COUNT++;
+        System.out.println("Second instance init block... var 'COUNT' = " + COUNT);
+    }
 
     public ClassInitializationOrder() {
         System.out.println("Constructor");

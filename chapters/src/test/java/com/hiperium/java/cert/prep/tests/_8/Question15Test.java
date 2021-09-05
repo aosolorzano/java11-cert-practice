@@ -5,20 +5,35 @@ import org.junit.Test;
 
 class Arachnid {
     static StringBuilder sb = new StringBuilder();
-    { sb.append("c"); }
-    static
-    { sb.append("u"); }
-    { sb.append("r"); }
 
-    public Arachnid(int t) {} // No default constructor. Must be called from inhered class.
+    {
+        sb.append("c");
+    }
+
+    static {
+        sb.append("u");
+    }
+
+    {
+        sb.append("r");
+    }
+
+    public Arachnid(int t) {
+    } // No default constructor. Must be called from inhered class.
 }
 
 class Scorpion extends Arachnid {
-    static
-    { sb.append("q"); }
-    { sb.append("m"); }
+    static {
+        sb.append("q");
+    }
 
-    Scorpion() { super(1); }
+    {
+        sb.append("m");
+    }
+
+    Scorpion() {
+        super(1);
+    }
 
     public static void main(String[] args) {
         System.out.print(Scorpion.sb + " "); // uq

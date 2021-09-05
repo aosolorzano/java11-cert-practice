@@ -2,6 +2,7 @@ package com.hiperium.java.cert.prep.chapter._8;
 
 class Marsupial {
     protected int age = 2;
+
     public static boolean isBiped() {
         return false;
     }
@@ -12,6 +13,7 @@ class Marsupial {
  */
 class Kangaroo extends Marsupial {
     protected int age = 6;            // hidden variable
+
     public static boolean isBiped() { // hidden method, not overridden: Only static methods can be hidden.
         return true;
     }

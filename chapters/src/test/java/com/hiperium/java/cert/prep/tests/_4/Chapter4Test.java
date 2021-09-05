@@ -46,8 +46,9 @@ public class Chapter4Test {
         switch (otherDay) {
             default:
             case 1: // continue;                               // 1ST ERROR -> Continue outside of loop
-            // case thursday: return DayOfWeek.THURSDAY;       // 2ND ERROR -> Constant expression required
-            case 2: break;
+                // case thursday: return DayOfWeek.THURSDAY;       // 2ND ERROR -> Constant expression required
+            case 2:
+                break;
             // case Sunday: return DayOfWeek.SUNDAY;           // 3RD ERROR -> Constant expression required
             // case DayOfWeek.MONDAY: return DayOfWeek.MONDAY; // 4TH ERROR -> Required: int - Provided: enum constant
         }
@@ -90,8 +91,11 @@ public class Chapter4Test {
         var tailFeathers = 3;
         final var one = 1;
         switch (tailFeathers) {
-            case one: System.out.print(3 + " ");
-            default: case 3: System.out.print(5 + " ");
+            case one:
+                System.out.print(3 + " ");
+            default:
+            case 3:
+                System.out.print(5 + " ");
         }
         while (tailFeathers > 1)
             System.out.print(--tailFeathers + " ");

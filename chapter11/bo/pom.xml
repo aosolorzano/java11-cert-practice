@@ -4,13 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.hiperium</groupId>
-        <artifactId>java11-cert-practice</artifactId>
+        <artifactId>chapter11</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>chapter11-module1</artifactId>
-    <name>chapter11-module1</name>
-    <description>Test practice for Java 11 Certification Exam</description>
-    <url>https://github.com/aosolorzano/java11-cert-practice</url>
+    <artifactId>chapter11-bo</artifactId>
+    <name>chapter11-bo</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hiperium</groupId>
+            <artifactId>chapter11-dao</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

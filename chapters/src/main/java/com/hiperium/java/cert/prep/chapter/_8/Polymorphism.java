@@ -12,6 +12,7 @@ class Primate {
 
 class Lemur extends Primate implements HasTail {
     int age = 10;
+
     @Override
     public boolean isTailStreped() {
         return false;

@@ -17,7 +17,7 @@ public class DeclaringVariables {
         _amount_ = 0b11;     // VALID
         _amount_ = 0xE;      // VALID
         colorPercentage = 0;
-        cost = 1/0;          // VALID
+        cost = 1 / 0;          // VALID
         age = 1200;
         Public = true;
     }

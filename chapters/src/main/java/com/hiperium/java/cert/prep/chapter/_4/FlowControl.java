@@ -32,12 +32,12 @@ public class FlowControl {
 
         switch (numberOfAnimals) { // MUST BE CONSTANTS AT COMPILE-TIME
             case bananas:
-            // case apples: DOES NOT COMPILE -> Constant expression required
+                // case apples: DOES NOT COMPILE -> Constant expression required
             case applesFinal:
-            // case getCookies(): DOES NOT COMPILE -> VALUE ITS EVALUATED AT RUNTIME
-            // case cookiesTwo: DOES NOT COMPILE -> Duplicate value 2 (applesFinal)
+                // case getCookies(): DOES NOT COMPILE -> VALUE ITS EVALUATED AT RUNTIME
+                // case cookiesTwo: DOES NOT COMPILE -> Duplicate value 2 (applesFinal)
             case cookiesFinal:
-            // case cookies: DOES NOT COMPILE -> Constant expression required
+                // case cookies: DOES NOT COMPILE -> Constant expression required
             case 3 * 5: // VALID - RESULTS IN A CONSTANT VALUE (15)
         }
     }

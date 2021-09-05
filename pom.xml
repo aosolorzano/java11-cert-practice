@@ -4,8 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hiperium</groupId>
     <artifactId>java11-cert-practice</artifactId>
-    <packaging>pom</packaging>
     <version>1.0.0</version>
+    <packaging>pom</packaging>
+
     <name>Java 11 Certification Practice</name>
     <description>Test practice for Java 11 Certification Exam</description>
     <url>https://github.com/aosolorzano/java11-cert-practice</url>
@@ -20,6 +21,6 @@
 
     <modules>
         <module>chapters</module>
-        <module>chapter11-mods</module>
+        <module>chapter11</module>
     </modules>
 </project>

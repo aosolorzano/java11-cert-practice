@@ -54,6 +54,7 @@ public class StaticInitializer {
     }
 
     // METHOD WITH VARARGS
-    public void moreE(String[] values, String... nums) {}
+    public void moreE(String[] values, String... nums) {
+    }
 
 }

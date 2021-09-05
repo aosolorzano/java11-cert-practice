@@ -15,7 +15,9 @@ public class LambdaFunctions {
         lambdaFunction.age = 1;
         check(lambdaFunction, l -> l.age < 5);
         // checkClimb((h, m) -> h.append(m).isEmpty(), 5);  ===> ERROR: Cannot resolve method 'append(int)'
-        checkClimb((h, l) -> { return h > l; }, 5);
+        checkClimb((h, l) -> {
+            return h > l;
+        }, 5);
     }
 
     private static void check(LambdaFunctions lambdaFunction, Predicate<LambdaFunctions> pred) {

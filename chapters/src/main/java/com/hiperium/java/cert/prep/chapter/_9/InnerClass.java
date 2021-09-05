@@ -4,11 +4,13 @@ public class InnerClass {
 
     private interface Paper {       // private access allowed for inner class member.
         static public int MAX = 3;
+
         public String getId();
     }
 
     class Ticket implements Paper { // package-private access allowed for inner class too.
         private String serialNumber;
+
         public String getId() {
             return serialNumber;
         }
