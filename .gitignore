@@ -6,7 +6,7 @@ libs/
 tmp/
 node_modules/
 # module output directory
-# mods
+mods/
 
 # Files #
 .DS_Store
