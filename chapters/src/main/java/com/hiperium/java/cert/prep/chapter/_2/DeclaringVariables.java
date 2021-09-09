@@ -11,15 +11,20 @@ public class DeclaringVariables {
     private double cost;
 
     // fake constructor
-    public void Variables() {
-        _color$ = "blue";
-        _amount_ = 3_100_89; // VALID
-        _amount_ = 0b11;     // VALID
-        _amount_ = 0xE;      // VALID
-        colorPercentage = 0;
-        cost = 1 / 0;          // VALID
-        age = 1200;
-        Public = true;
+    public void DeclaringVariables() {
+        this._color$ = "blue";
+        _amount_ = 3_100_89;      // VALID
+        _amount_ = 0b11;          // VALID
+        this._amount_ = 0xE;      // VALID
+        this.colorPercentage = 0;
+        this.cost = 1 / 0;        // VALID
+        this.age = 1200;
+        this.Public = true;
+
+        // valid var declarations
+        var $_ = 6_000;
+        var $2 = 6_000f;
+        var var = 3_0_00.0;
     }
 
     public static void main(String[] args) {
@@ -41,7 +46,7 @@ public class DeclaringVariables {
         printMoreVars();
     }
 
-    // private void printMoreVars(int vars = 3) NOT VALID
+    // private static void printMoreVars(int vars = 3) NOT VALID
     private static void printMoreVars() {
         var night = new Object();
         System.out.println("Night (Generic Obj) = " + night);
@@ -53,11 +58,6 @@ public class DeclaringVariables {
 
         night = "";
         System.out.println("Night (Empty Str) = " + night);
-
-        // valid var declarations
-        var $_ = 6_000;
-        var $2 = 6_000f;
-        var var = 3_0_00.0;
 
         double weight = 2;
         System.out.println("Weight (assigned int value) = " + weight); // PRINTS 2.0

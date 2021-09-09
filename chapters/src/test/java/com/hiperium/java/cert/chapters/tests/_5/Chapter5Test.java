@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.prep.tests._5;
+package com.hiperium.java.cert.chapters.tests._5;
 
 import org.junit.Test;
 
