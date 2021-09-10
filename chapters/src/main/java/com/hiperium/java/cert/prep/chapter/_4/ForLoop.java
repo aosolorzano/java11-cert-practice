@@ -9,7 +9,7 @@ public class ForLoop {
         System.out.println(x + " ");
 
         // Initialize x again to 0
-        for (x = 0; x < 10; ) { // VALID FOR STRUCTURE
+        for (x = 0; x < 10; ) {     // VALID STRUCTURE
             x++;
         }
         System.out.println("x = " + x);

@@ -78,5 +78,13 @@ public class Enumerations {
         System.out.print("Traffic on spring: "); SeasonTraffic.SPRING.printExpectedVisitors();
         System.out.println("Traffic hours on winter: " + SeasonHoursWithAbstractImplementation.WINTER.getHours());
         System.out.println("Traffic hours on fall: " + SeasonHoursWithDefaultImplementation.FALL.getHours());
+        enumsOnSwitchStatement(Season.SPRING);
+    }
+
+    public static void enumsOnSwitchStatement(Season seasons) {
+        switch (seasons) {
+            default:
+            // case SUMMER | WINTER: Operator '|' cannot be applied to Season, Season.
+        }
     }
 }
