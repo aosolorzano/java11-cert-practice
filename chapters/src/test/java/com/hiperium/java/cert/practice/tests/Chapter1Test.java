@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class Chapter1Test {
 
     /**
-     * Which of the following are not valid variable names? (Choose two.)
+     * Which of the following are not valid variable names?
      */
     @Test
     public void question1() {

@@ -32,13 +32,15 @@ public class Chapter2Test {
     }
 
     /**
-     * Given the following, which can fill in the blank and allow the code to compile? (Choose three.)
+     * Given the following, which can fill in the blank and allow the code to compile?
      */
     @Test
     public void question4() {
-        // var quest = new int[]{3};    CORRECT OPTION: an int array with 1 element (3).
-        // var quest = List.of(3);      CORRECT OPTION: an unmodifiable List of integers with 1 element (3).
-        var quest = new String[3];   // CORRECT OPTION: an array of Strings with 3 elements (nulls).
+        // var quest = new int[]{2};       VALID: an int array with 1 element of value 3.
+        // var quest = new int[2]{1,2};    ERROR: cannot create a fixed array and initialized it at the same time.
+        // var quest = List.of(3);         VALID: an unmodifiable List of integers with 1 element of value 3.
+        // var quest = new Integer[4];     VALID: an array of Integer objects with 3 null elements.
+        var quest = new String[3];      // VALID: an array of Strings objects with 3 null elements.
         for (var zelda : quest) {
             System.out.println(zelda);
         }
