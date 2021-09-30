@@ -33,6 +33,13 @@ class Team {
     @Plumber("Kelly") private String trainee;
 }
 
+/**
+ * Annotations
+ *      - Describe the purpose of annotations and typical usage patterns.
+ *      - Apply annotations to classes and methods.
+ *      - Describe commonly used annotations in the JDK.
+ *      - Declare custom annotations.
+ */
 public class Chapter13Test {
     /**
      * Which of the following lines of code do not compile?

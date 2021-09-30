@@ -1,4 +1,4 @@
-package com.hiperium.java.cert.practice.aux;
+package com.hiperium.java.cert.practice.util;
 
 /**
  * This class is used in practice tests in chapter 3.

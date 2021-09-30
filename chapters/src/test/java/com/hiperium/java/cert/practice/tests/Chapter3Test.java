@@ -1,6 +1,6 @@
 package com.hiperium.java.cert.practice.tests;
 
-import com.hiperium.java.cert.practice.aux.Hooper;
+import com.hiperium.java.cert.practice.util.Hooper;
 import org.junit.Assert;
 import org.junit.Test;
 

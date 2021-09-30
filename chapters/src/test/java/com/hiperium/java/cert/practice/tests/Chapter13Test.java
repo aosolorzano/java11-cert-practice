@@ -20,7 +20,11 @@ import java.util.List;
 class Cheetah extends BigCat {}
 
 /**
- * Class used to validate practice tests of the exam objective 13.
+ * Annotations
+ *      - Describe the purpose of annotations and typical usage patterns.
+ *      - Apply annotations to classes and methods.
+ *      - Describe commonly used annotations in the JDK.
+ *      - Declare custom annotations.
  */
 public class Chapter13Test {
 

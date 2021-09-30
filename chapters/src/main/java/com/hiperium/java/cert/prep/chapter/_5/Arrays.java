@@ -17,7 +17,7 @@ public class Arrays {
         // Anonymous array
         int[] numbers3 = {42, 55, 99};
 
-        /* ***************** VALID JAVA ARRAYS DECLARATIONS *****************
+        /* ***************** CORRECT JAVA ARRAYS DECLARATIONS *****************
         int[] numAnimals;
         int [] numAnimals2;
         int []numAnimals3;
@@ -43,8 +43,8 @@ public class Arrays {
 
         binarySearch();
         compareArrays();
-        fromArrayListToArray();
-        arraysAsLists();
+        fromListToArray();
+        fromArrayToLists();
         immutableList();
     }
 
@@ -81,7 +81,7 @@ public class Arrays {
         System.out.println(java.util.Arrays.compare(new String[]{null}, new String[]{"ab", "yz"}));   // -1
     }
 
-    private static void fromArrayListToArray() {
+    private static void fromListToArray() {
         System.out.println("**** FROM ARRAY LIST TO ARRAY ****");
         List<String> list = new ArrayList<>();
         list.add("hawk");
@@ -95,9 +95,9 @@ public class Arrays {
 
     /**
      * After 'Arrays.asList' both variables makes references to the same values on the heap. Thus, the list variable
-     * its a backed version of the original array.
+     * is a backed version of the original array.
      */
-    private static void arraysAsLists() {
+    private static void fromArrayToLists() {
         System.out.println("**** FROM ARRAY TO ARRAY LIST ****");
         String[] array = {"hawk", "robin"};
         System.out.println("Original String Array values: " + java.util.Arrays.toString(array));
