@@ -331,16 +331,16 @@ class Gift {
 /**
  * QUESTION 140
  */
-class Math {
+class MathQ {
     public final double secret = 2;
 }
-class ComplexMath extends Math {
+class ComplexMath extends MathQ {
     public final double secret = 4;
 }
 class InfiniteMath extends ComplexMath {
     public final double secret = 8;
     public static void main() {
-        Math math = new InfiniteMath();
+        MathQ math = new InfiniteMath();
         System.out.print(math.secret);
     }
 }
