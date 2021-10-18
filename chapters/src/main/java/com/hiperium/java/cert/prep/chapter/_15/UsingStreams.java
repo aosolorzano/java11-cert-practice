@@ -205,6 +205,7 @@ public class UsingStreams {
         Stream<String> stream = Stream.of("w", "o", "l", "f");
         String word = stream.reduce("", String::concat);
         System.out.println("Stream reduction result: " + word);
+
         // Write a reduction to multiply all the Integer elements in a stream
         Stream<Integer> numbers = Stream.of(3, 5, 6);
         System.out.println(numbers.reduce(1, (a, b) -> a * b));     // PRINT: 90
@@ -249,9 +250,9 @@ public class UsingStreams {
      */
     public static void collect() {
         /*
-         * 1. <R> R collect(Supplier<R> supplier,
-         *                  BiConsumer<R, ? super T> accumulator,
-         *                  BiConsumer<R, R> combiner)
+         * <R> R collect(Supplier<R> supplier,
+         *               BiConsumer<R, ? super T> accumulator,
+         *               BiConsumer<R, R> combiner)
          */
         Stream<String> stringStream1 = Stream.of("w", "o", "l", "f");
         StringBuilder collect1 = stringStream1.collect(
