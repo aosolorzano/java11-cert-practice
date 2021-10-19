@@ -213,6 +213,7 @@ class SnowStorm {
             System.out.println("Trying to WalkToSchool...");
             throw new RuntimeException("blizzard");
         } catch(Exception e) {
+            System.out.println("Printing the stack trace: ");
             e.printStackTrace();
             System.out.println(e.getMessage() + " " + e.getSuppressed().length);    // NOTE: the suppressed length is 2.
         }
@@ -276,6 +277,8 @@ public class Chapter16Test {
      */
     @Test
     public void question5() {
+        // DateTimeParseException: Text '2020-04-30' could not be parsed at index 10
+        // LocalDate date = LocalDate.parse("2020-04-30", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         LocalDate date = LocalDate.parse("2020-04-30", DateTimeFormatter.ISO_LOCAL_DATE);
         System.out.println("LocalDate: " + date);       // PRINT: 2020-04-30
         System.out.println(date.getYear() + " "         // PRINT: 2020

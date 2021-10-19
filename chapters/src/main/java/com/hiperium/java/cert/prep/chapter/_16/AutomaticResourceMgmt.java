@@ -1,7 +1,8 @@
 package com.hiperium.java.cert.prep.chapter._16;
 
-class JammedTurkeyCage implements AutoCloseable {
+import java.util.Scanner;
 
+class JammedTurkeyCage implements AutoCloseable {
     public void close() throws IllegalStateException {
         throw new IllegalStateException("Cage door does not close.");
     }
@@ -44,6 +45,7 @@ public class AutomaticResourceMgmt {
             System.out.println("Caught: " + e.getMessage());    // PRINT => Caught: Cage door does not close.
         }
         suppressedExceptions();
+        usingScanner();
     }
 
     /**
@@ -70,5 +72,21 @@ public class AutomaticResourceMgmt {
                 System.out.println("Suppressed: " + t.getMessage());    // PRINT: Suppressed: Cage door does not close.
             }
         }
+    }
+
+    public static void usingScanner() {
+        try (Scanner s = new Scanner(System.in)) {
+            System.out.println(1);
+            s.nextLine();           // Read the entire line of characters enter by the user.
+            System.out.print(2);
+            // s = null;            ERROR: Cannot assign a value to final variable 's'.
+        } catch (IllegalArgumentException | NullPointerException x) {
+            // s.nextLine();        ERROR: Cannot resolve symbol 's'.
+            System.out.print(3);
+        } finally {
+            // s.nextLine();        ERROR: Cannot resolve symbol 's'.
+            System.out.print(4);
+        }
+        System.out.println(5);
     }
 }
