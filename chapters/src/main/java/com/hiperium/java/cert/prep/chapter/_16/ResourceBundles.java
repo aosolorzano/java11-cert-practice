@@ -78,7 +78,7 @@ public class ResourceBundles {
         ResourceBundle rb = ResourceBundle.getBundle("Zoo", new Locale("hi"));
         System.out.println(rb.getString("hello") + ", " + rb.getString("open"));    // Hello, The zoo is open.
         // The answer is three:
-        // 1. Zoo_es.properties
+        // 1. Zoo_hi.properties
         // 2. Zoo_en.properties
         // 3. Zoo.properties
     }

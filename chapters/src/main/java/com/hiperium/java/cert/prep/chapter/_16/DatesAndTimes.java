@@ -31,10 +31,10 @@ public class DatesAndTimes {
 
         // The date and time classes support many methods to get data out of them.
         LocalDate date = LocalDate.of(2021, Month.OCTOBER, 9);
-        System.out.println("Day of the week: " + date.getDayOfWeek());
-        System.out.println("Month: " + date.getMonth());
-        System.out.println("Year: " + date.getYear());
-        System.out.println("Day of the year: " + date.getDayOfYear());
+        System.out.println("Day of the week: " + date.getDayOfWeek());      // SATURDAY
+        System.out.println("Month: " + date.getMonth());                    // OCTOBER
+        System.out.println("Year: " + date.getYear());                      // 2021
+        System.out.println("Day of the year: " + date.getDayOfYear());      // 282
 
         ofMethod();
         formattingDatesAndTimes();
@@ -91,17 +91,17 @@ public class DatesAndTimes {
         LocalDate date1 = LocalDate.of(2021, Month.OCTOBER, 9);
         LocalTime time1 = LocalTime.of(18, 30);
         LocalDateTime dt1 = LocalDateTime.of(date1, time1);
-        System.out.println("DateTime for formatting: " + dt1);                    // 2021-10-09T18:30
+        System.out.println("DateTime used for formatting: " + dt1);               // 2021-10-09T18:30
         System.out.println(dt1.format(DateTimeFormatter.ISO_LOCAL_DATE));         // 2021-10-09
         System.out.println(dt1.format(DateTimeFormatter.ISO_LOCAL_TIME));         // 18:30:00
         System.out.println(dt1.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));    // 2021-10-09T18:30:00
 
         // DateTimeFormatter supports a custom format using a date format String.
         var f = DateTimeFormatter.ofPattern("MMMM dd, yyyy 'at' hh:mm");
-        System.out.println(dt1.format(f));                      // PRINT: October 09, 2021 at 06:30
+        System.out.println(dt1.format(f));              // PRINT: October 09, 2021 at 06:30
 
         var formatter1 = DateTimeFormatter.ofPattern("MM_yyyy_-_dd");
-        System.out.println(dt1.format(formatter1));             // PRINT: 10_2021_-_09
+        System.out.println(dt1.format(formatter1));     // PRINT: 10_2021_-_09
 
         // Using ZoneDateTime
         var formatter2 = DateTimeFormatter.ofPattern("h:mm z");
@@ -109,7 +109,7 @@ public class DatesAndTimes {
             System.out.println(dt1.format(formatter2));
         } catch (DateTimeException e) {
             System.out.println(e.getMessage());                 // Unable to extract ZoneId from temporal.
-            // ZoneId zoneId = ZoneId.of("-05:00");             // PRINT: 2021-10-09T18:30-05:00
+            // ZoneId zoneId = ZoneId.of("-05:00");                PRINT: 2021-10-09T18:30-05:00
             ZoneId zoneId = ZoneId.of("Europe/London");
             ZonedDateTime zdt = ZonedDateTime.of(dt1, zoneId);
             System.out.println("ZonedDateTime: " + zdt);        // PRINT: 2021-10-09T18:30+01:00[Europe/London]
@@ -120,29 +120,29 @@ public class DatesAndTimes {
         // is acceptable
         var dateTime3 = LocalDateTime.of(2020, Month.OCTOBER, 20, 6, 15, 30);
         var formatter3 = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss");
-        System.out.println(dateTime3.format(formatter3));
-        System.out.println(formatter3.format(dateTime3));
+        System.out.println("Format from LocalDateTime: " + dateTime3.format(formatter3));       // 10/20/2020 06:15:30
+        System.out.println("Format from DateTimeFormatter: " + formatter3.format(dateTime3));   // 10/20/2020 06:15:30
 
         // What if we want our format to include some custom text values? We can escape the text by surrounding it with
         // a pair of single quotes (''). Escaping text instructs the formatter to ignore the values inside the single
         // quotes and just insert them as part of the final value.
         var formatter4 = DateTimeFormatter
                 .ofPattern("MMMM dd, yyyy 'at' hh:mm");
-        System.out.println("With escape text: " + dt1.format(formatter4));      // PRINT: October 09, 2021 at 06:30
+        System.out.println("With escape text: " + dt1.format(formatter4));      // October 09, 2021 at 06:30
 
         // What if we need to display a single quote in the output too? Java supports this by putting two single quotes
         // next to each other.
         var formatter5 = DateTimeFormatter
                 .ofPattern("MMMM dd', Party''s at' hh:mm");
-        System.out.println("Formatter5: " + dt1.format(formatter5));    // PRINT: October 09, Party's at 06:30
+        System.out.println("Formatter5: " + dt1.format(formatter5));            // October 09, Party's at 06:30
 
         var formatter6 = DateTimeFormatter
                 .ofPattern("'System''s format, hh:mm >> 'hh:mm");
-        System.out.println("Formatter6: " + dt1.format(formatter6));    // PRINT: System's format, hh:mm >> 06:30
+        System.out.println("Formatter6: " + dt1.format(formatter6));            // System's format, hh:mm >> 06:30
 
         var formatter7 = DateTimeFormatter
                 .ofPattern("'Happy new 'yyyy 'year!!!'");
-        System.out.println("Formatter7: " + dt1.format(formatter7));    // PRINT: Happy new 2021 year!!!
+        System.out.println("Formatter7: " + dt1.format(formatter7));            // Happy new 2021 year!!!
 
     }
 }
