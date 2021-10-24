@@ -12,8 +12,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dao</module>
-        <module>bo</module>
         <module>api</module>
+        <module>api-impl</module>
+        <module>api-dao</module>
     </modules>
 </project>

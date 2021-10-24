@@ -7,8 +7,23 @@
         <artifactId>chapter11</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>chapter11-api</artifactId>
-    <name>chapter11-api</name>
+    <artifactId>chapter11-api-impls</artifactId>
+    <name>chapter11-api-impl</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hiperium</groupId>
+            <artifactId>chapter11-api</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.hiperium</groupId>
+            <artifactId>chapter11-api-dao</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
