@@ -18,4 +18,4 @@ javac -p mods -d chapters/target/classes \
     chapters/src/main/java/com/hiperium/java/cert/prep/chapter/_11/*.java \
     chapters/src/main/java/com/hiperium/java/cert/prep/chapter/_17/*.java \
     chapters/src/main/java/module-info.java
-jar -cvf mods/java11-cert-practice-chapters.jar -C chapters/target/classes .
+jar -cvfe mods/java11-cert-practice-chapters.jar com.hiperium.java.cert.prep.chapter._17.APIModuleClient -C chapters/target/classes .

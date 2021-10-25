@@ -68,8 +68,9 @@ javac -p mods -d chapters/target/classes \
     chapters/src/main/java/com/hiperium/java/cert/prep/chapter/_17/*.java \
     chapters/src/main/java/module-info.java
 ```
+We can set the JAR main class when generating the module JAR file. We can do so by providing an "e" argument:
 ```
-jar -cvf mods/java11-cert-practice-chapters.jar -C chapters/target/classes .
+jar -cvfe mods/java11-cert-practice-chapters.jar com.hiperium.java.cert.prep.chapter._17.APIModuleClient -C chapters/target/classes .
 ```
 
 #### Running program modularity
@@ -77,9 +78,12 @@ Now, we can run the test class, using the generated CHAPTERS JAR:
 ```
 java --module-path mods --module com.hiperium.java.cert.prep.chapters/com.hiperium.java.cert.prep.chapter._11.JavaModuleClient
 ```
-Or
 ```
 java -p mods -m com.hiperium.java.cert.prep.chapters/com.hiperium.java.cert.prep.chapter._17.APIModuleClient
+```
+Or simply using the jar directive:
+```
+java -p mods -jar mods/java11-cert-practice-chapters.jar
 ```
 
 ### Discovering Modules
@@ -125,7 +129,7 @@ jar -f mods/java11-cert-practice-chapter11-api-impl.jar -d
 ```
 
 #### JDEPS command
-Unlike describing a module, it looks at the code in addition to the module-info file. This tells us what dependencies are actually used rather than simply declared.
+Unlike describing a module, it looks at the code in addition to the module-info file. This tell us what dependencies are actually used rather than simply declared.
 ```
 jdeps -summary mods/java11-cert-practice-chapter11-api.jar
 ```
@@ -195,3 +199,7 @@ At the end of the output, the command provides a table suggesting what I should 
 | -C<br/>                   | Directory containing files to be used to create the JAR.   |
 | -d<br/> --describe-module | Describes the details of a module.                         |
 
+### Packing a Java Module as a Standalone Application
+```
+jlink --module-path "mods;$JAVA_HOME/jmods" --add-modules com.hiperium.java.cert.prep.chapters --output chapters-jre
+```
