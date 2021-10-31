@@ -149,7 +149,19 @@ jdeps -s --module-path mods mods/java11-cert-practice-chapter11-api-impl.jar
 ```
 Note: There is not a short form of --module-path in the jdeps command.
 
-Finally, I have created a JAR inside the "ext" directory that is not a modular application, but we can view what packages it use and what modules they correspond to:
+#### JDEPS for Non-Modular Application
+I have created a JAR inside the "ext" directory that is not a modular application:
+```
+cd ext
+javac zoo/dinos/*java
+jar -cvf zoo.dino.jar .
+```
+Note: If we want to add an entry main class for a Jar, we can use the "-e" parameter like this:
+```
+jar -cvfe schedule-test.jar schedule.test.Schedule schedule
+```
+
+Now, we can view what packages it use and what modules it corresponds to:
 ```
 jdeps zoo.dino.jar
 ```
