@@ -39,6 +39,8 @@ public class PrimitiveStreams {
     }
 
     /**
+     * Mapping methods between types of streams
+     *
      * *************************************************************************************************************|
      * Source stream class | To create Stream | To create DoubleStream | To create IntStream | To create LongStream |
      * ********************|******************|************************|*********************|**********************|
@@ -79,6 +81,8 @@ public class PrimitiveStreams {
     }
 
     /**
+     * Optional types for primitives:
+     *
      * **********************************************************************************|
      *              ***               | OptionalDouble | OptionalInt    | OptionalLong   |
      * *******************************|****************|****************|****************|

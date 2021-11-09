@@ -17,7 +17,7 @@ import java.util.Optional;
  *                         |  calling a Supplier                 |                                   |
  * --------------------------------------------------------------------------------------------------|
  */
-public class CreatingOptional {
+public class ReturningOptional {
 
     public static void main(String[] args) {
         System.out.println("Average: " + average(90, 100));     // PRINT: Optional[95.0]
