@@ -4,8 +4,6 @@ bin/
 target/
 libs/
 tmp/
-node_modules/
-# module output directory
 mods/
 
 # Files #
@@ -13,6 +11,7 @@ mods/
 *~
 *.class
 **/*.class
+
 # Thumbnails
 ._*
 
