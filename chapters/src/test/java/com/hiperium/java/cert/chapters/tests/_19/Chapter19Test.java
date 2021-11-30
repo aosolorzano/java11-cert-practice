@@ -13,11 +13,11 @@ public class Chapter19Test {
     @Test(expected = IOException.class)
     public void question16() throws IOException {
         var o = new FileWriter("target/new-zoo.txt");
-        try (var f = new FileReader("pom.xml");     // The program refers to the POM at chapters folder.
+        try (var f = new FileReader("pom.xml");         // The program refers to the POM at chapters folder.
              var b = new BufferedReader(f); o) {
             o.write(b.readLine());
         }
-        o.write("");                                    // ERROR: Stream closed.
+        o.write("");                                        // ERROR: Stream closed.
     }
 
     /**
@@ -48,6 +48,10 @@ public class Chapter19Test {
 
     /**
      * Given the following method, which statements are correct?
+     *
+     * C. The code compiles and correctly copies the data between some files.
+     * E. If we check file2 in line n1 within the file system after five iterations of the while loop, it may be empty.
+     * G. This method contains a resource leak.
      */
     @Test
     public void question19() throws IOException {
@@ -59,6 +63,6 @@ public class Chapter19Test {
                 // n1
             }
         }
-
+        Assert.assertTrue(true);
     }
 }

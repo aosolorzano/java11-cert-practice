@@ -213,4 +213,9 @@ public class MiscTest {
         s = "turtle";
         System.out.println("pred.test() = " + pred.test("is"));
     }
+
+    @Test
+    public void deleteDirectoryTree() {
+
+    }
 }
