@@ -287,8 +287,6 @@ public class Chapter20Test {
         Assert.assertTrue(true);
     }
 
-
-
     /**
      * What are some possible results of executing the following code?
      *
