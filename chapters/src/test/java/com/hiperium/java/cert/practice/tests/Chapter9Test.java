@@ -109,8 +109,7 @@ public class Chapter9Test {
             Files.createDirectories(f1);
             var f2 = Path.of("/tmp");
             // f2.createDirectory();                         k1 ERROR: Cannot resolve method 'createDirectory' in 'Path'
-            try(var w = Files.newBufferedWriter(
-                    Path.of(f2.toString(), "draft.txt"))) {
+            try(var w = Files.newBufferedWriter(Path.of(f2.toString(), "draft.txt"))) {
                 w.append("My dream job");
                 w.flush();
             }

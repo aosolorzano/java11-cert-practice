@@ -153,11 +153,12 @@ Note: There is not a short form of --module-path in the jdeps command.
 I have created a JAR inside the "ext" directory that is not a modular application:
 ```
 cd ext
-javac zoo/dinos/*java
-jar -cvf zoo.dino.jar .
+javac zoo/dinos/*.java
+jar -cvf zoo.dino.jar dino
 ```
 Note: If we want to add an entry main class for a Jar, we can use the "-e" parameter like this:
 ```
+javac schedule/test/*.java
 jar -cvfe schedule-test.jar schedule.test.Schedule schedule
 ```
 

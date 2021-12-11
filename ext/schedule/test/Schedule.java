@@ -16,8 +16,8 @@ public class Schedule {
                 System.out.println("Hello Zoo from task 2.");
                 return "Monkey";
             };
-            ScheduledFuture<?> r1 = service.schedule(task1, 10, TimeUnit.SECONDS);
-            ScheduledFuture<String> r2 = service.schedule(task2, 30, TimeUnit.SECONDS);
+            ScheduledFuture<?> r1 = service.schedule(task1, 5, TimeUnit.SECONDS);
+            ScheduledFuture<String> r2 = service.schedule(task2, 10, TimeUnit.SECONDS);
         } finally {
             if (Objects.nonNull(service))
                 service.shutdown();

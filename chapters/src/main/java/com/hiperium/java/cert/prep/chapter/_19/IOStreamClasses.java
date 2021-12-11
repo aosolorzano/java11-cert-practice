@@ -75,9 +75,9 @@ class Chimpanzee implements Serializable {
 
 public class IOStreamClasses {
 
-    public static final String FILE_NAME_SOURCE = "misc/chapter_19/test_src.txt";
-    public static final String FILE_NAME_DESTINATION = "misc/chapter_19/test_dest.txt";
-    public static final String FILE_NAME_SERIALIZING = "misc/chapter_19/test_serializing.txt";
+    public static final String FILE_NAME_SOURCE = "misc/review_chapter_19/test_src.txt";
+    public static final String FILE_NAME_DESTINATION = "misc/review_chapter_19/test_dest.txt";
+    public static final String FILE_NAME_SERIALIZING = "misc/review_chapter_19/test_serializing.txt";
 
     public static void main(String[] args) {
         var src = new File(FILE_NAME_SOURCE);

@@ -19,6 +19,12 @@ public class SetupDerbyDatabase {
                     + "species_id integer REFERENCES exhibits (id), "
                     + "name VARCHAR(255))");
 
+            // FOR CHAPTER 22 - SECURITY
+            run(conn,"CREATE TABLE hours ("
+                    + "day VARCHAR(20) PRIMARY KEY, "
+                    + "opens integer, "
+                    + "closes integer)");
+
             run(conn,"INSERT INTO exhibits VALUES (1, 'African Elephant', 7.5)");
             run(conn,"INSERT INTO exhibits VALUES (2, 'Zebra', 1.2)");
 
@@ -27,6 +33,17 @@ public class SetupDerbyDatabase {
             run(conn,"INSERT INTO names VALUES (3, 1, 'Ester')");
             run(conn,"INSERT INTO names VALUES (4, 1, 'Eddie')");
             run(conn,"INSERT INTO names VALUES (5, 2, 'Zoe')");
+
+            // FOR CHAPTER 22 - SECURITY
+            run(conn,"INSERT INTO hours VALUES ('sunday', 9, 6)");
+            run(conn,"INSERT INTO hours VALUES ('monday', 10, 4)");
+            run(conn,"INSERT INTO hours VALUES ('tuesday', 10, 4)");
+            run(conn,"INSERT INTO hours VALUES ('wednesday', 10, 5)");
+            run(conn,"INSERT INTO hours VALUES ('thrusday', 10, 4)");
+            run(conn,"INSERT INTO hours VALUES ('friday', 10, 6)");
+            run(conn,"INSERT INTO hours VALUES ('saturday', 9, 6)");
+
+
 
             printCount(conn,"SELECT count(*) FROM names");
         }
