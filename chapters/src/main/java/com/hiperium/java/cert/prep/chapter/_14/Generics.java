@@ -149,7 +149,7 @@ public class Generics {
      * used in a wildcard. A bounded parameter type is a generic type that specifies a bound for the generic.
      *
      * UNBOUNDED WILDCARDS:
-     * An unbounded wildcard represents any data type. We use ? when we want to specify that any type is okay for us.
+     * An unbounded wildcard represents any data type. We use "?" when we want to specify that any type is okay for us.
      */
     public static void printList(List<?> list) {
         for (Object x : list) {

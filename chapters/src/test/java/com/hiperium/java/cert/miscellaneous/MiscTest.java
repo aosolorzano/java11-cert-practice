@@ -3,17 +3,155 @@ package com.hiperium.java.cert.miscellaneous;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MiscTest {
+
+    /**
+     * Which statement about a variable with the type of var are true?
+     *
+     * B. The variable can be assigned to null only after initial initialization.
+     * F. A primitive or an Object can be used with the variable.
+     */
+    @Test
+    public void usingVar() {
+        var var = "";
+        var = null;
+        var num = 3;
+        // num = null;                      ERROR >>> Required type: int -- Provided: null
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * Which of the following statements about calling "this()" in a constructor are true?
+     *
+     * A. If arguments are provided to "this()", then there must be a constructor in the class able to take those
+     *    arguments.
+     * C. If the no‐argument "this()" is called, then the class must explicitly implement the no‐argument constructor.
+     * F. If "this()" is used, it must be the first line of the constructor.
+     */
+    static class Animal {
+        public Animal(String sound) {}
+    }
+    static class Dog extends Animal {
+        public Dog() {
+            super("woof");    // ERROR: There is no default constructor available in 'Animal'.
+        }
+        public Dog(String sound) {
+            // this();              ERROR: Call to 'super()' must be first statement in constructor body.
+            super(sound);
+            // this();              ERROR: Call to 'this()' must be first statement in constructor body.
+        }
+        public Dog(String name, String sound) {
+            // this();              ERROR: We cannot use 2 "this()" methods in the same constructor.
+            // super(sound);        ERROR: Call to 'this()' must be first statement in constructor body.
+            this(sound);
+        }
+    }
+    @Test
+    public void constructorInitialization() {
+        new Dog("bark");
+        Assert.assertTrue(true);
+    }
+
+    static int[][] game;
+    @Test
+    public void biDimensionalArray() {
+    //  game[3][3] = 6;                     THROWS NullPointerException at runtime.
+        game = new int[3][3];
+    //  game[3][3] = 6;                     THROWS ArrayIndexOutOfBoundsException at runtime.
+    //  game[3][3] = "X";                   ERROR >>> Required type: int - Provided: String.
+        game[2][2] = 6;
+        System.out.println("game.length = " + game.length);     // PRINT: 3
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.printf("%2s", game[i][j]);
+            }
+            System.out.println("");
+        }
+        Object[] obj = game;
+        System.out.println("obj.length = " + obj.length);       // PRINT: 3
+        for (Object o : obj) {
+            int[] array = (int[]) o;
+            System.out.println(Arrays.toString(array));
+        }
+    //  obj[2] = "X";                         VALID, but THROWS ArrayStoreException at runtime.
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * offer()   : Inserts the specified element at the end of this deque. This method is equivalent to "offerLast()".
+     * peek()    : Retrieves, but does not remove, the head of the queue represented by this deque, or returns null if
+     *             this deque is empty. This method is equivalent to "peekFirst()".
+     * pool()    : Retrieves and removes the head of the queue represented by this deque (the first element of this
+     *             deque), or returns null if this deque is empty. This method is equivalent to "pollFirst()".
+     * offerFirst: Inserts the specified element at the front of this deque.
+     * offerLast : Inserts the specified element at the end of this deque.
+     */
+    @Test
+    public void arrayDeque() {
+        var q = new ArrayDeque<String>();
+        q.offer("snowball");    // <<< HEAD
+        q.offer("minnie");
+        q.offer("sugar");       // <<< TAIL
+        System.out.println("q.peek() = " + q.peek());   // PRINT: snowball
+        System.out.println("q.peek() = " + q.peek());   // PRINT: snowball
+        System.out.println("q.size() = " + q.size());   // PRINT: 3
+
+        q.offerFirst("snowball");
+        q.offer("sugar");
+        q.offerLast("minnie");
+        System.out.println("Deque: " + q);              // PRINT: [snowball, snowball, minnie, sugar, sugar, minnie]
+        System.out.println(q.poll());                   // PRINT: snowball
+        System.out.println(q.removeFirst());            // PRINT: snowball
+        System.out.println("Deque: " + q);              // PRINT: [minnie, sugar, sugar, minnie]
+        System.out.println(q.size());                   // PRINT: 4
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * LinkedList is a Deque, or double-ended queue. This let us add elements at both ends.
+     *
+     * offer(): Adds the specified element as the tail (last element) of this list.
+     * push() : Inserts the element at the front of this list. This method is equivalent to "addFirst()".
+     * poll() : Retrieves and removes the head (first element) of this list.
+     */
+    @Test
+    public void linkedList() {
+        var x = new LinkedList<Integer>();
+        x.offer(18);
+        x.offer(5);     // <<< TAIL
+        x.push(13);     // <<< HEAD
+        System.out.println("x.poll() = " + x.poll());       // PRINT: 13
+        System.out.println("x.poll() = " + x.poll());       // PRINT: 18
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void treeMap() {
+
+    }
+
+    @Test
+    public void treeSet() {
+
+    }
+
+    // TODO: Check this code.
+    @Test
+    public void lambdaWithEffectivelyFinalVariable() {
+        var s = "fish";
+        Predicate<String> pred = s::contains;               // NOTE: This code is valid, but the following not.
+        // Predicate<String> pred2 = x -> s.contains(x);       ERROR: Variable "s" should be final or effectively final.
+        s = "turtle";
+        System.out.println("pred.test() = " + pred.test("is"));
+    }
 
     @Test
     public void streamPipelineFlow() {
@@ -110,7 +248,9 @@ public class MiscTest {
                     System.out.println("combiner -->> " + x);
                 }
         );
-        /* Same as before but using method reference:
+        /*
+        * SAME AS BEFORE BUT USING A METHOD REFERENCE:
+        *
         StringBuilder result1 = stream2.collect(
                 StringBuilder::new,
                 StringBuilder::append,
@@ -133,7 +273,9 @@ public class MiscTest {
                     System.out.println("combiner -->> " + x);
                 }
         );
-        /* Same as before but using method reference:
+        /*
+        * SAME AS BEFORE BUT USING A METHOD REFERENCE:
+        *
         TreeSet<String> result2 = stream2.collect(
                 TreeSet::new,
                 TreeSet::add,
@@ -192,30 +334,5 @@ public class MiscTest {
         ToIntFunction<Long>    tif4 = Long::intValue;
 
         Assert.assertTrue(true);
-    }
-
-    @Test
-    public void arrayDeque() {
-
-    }
-
-    @Test
-    public void linkedList() {
-
-    }
-
-    // TODO: Check this code.
-    @Test
-    public void lambdaWithEffectivelyFinalVariable() {
-        var s = "fish";
-        Predicate<String> pred = s::contains;               // NOTE: This code is valid.
-        // Predicate<String> pred2 = x -> s.contains(x);    ERROR: Variable "s" should be final or effectively final.
-        s = "turtle";
-        System.out.println("pred.test() = " + pred.test("is"));
-    }
-
-    @Test
-    public void deleteDirectoryTree() {
-
     }
 }

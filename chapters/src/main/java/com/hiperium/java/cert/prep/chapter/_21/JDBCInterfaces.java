@@ -163,7 +163,7 @@ public class JDBCInterfaces {
                 nextIndex++;
             }
             int[] result = ps.executeBatch();
-            System.out.println("Arrays.toString(result) = " + Arrays.toString(result));
+            System.out.println("UsingArrays.toString(result) = " + Arrays.toString(result));
         } catch (SQLException e) {
             System.out.println("ERROR performing Bulk Update: " + e.getMessage());
             System.out.println("SQL State: " + e.getSQLState());

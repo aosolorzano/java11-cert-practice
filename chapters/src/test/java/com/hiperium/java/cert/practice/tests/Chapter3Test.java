@@ -3,744 +3,11 @@ package com.hiperium.java.cert.practice.tests;
 import com.hiperium.java.cert.practice.util.Hooper;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.Arrays;
 
 /**
- * QUESTION 1
- *
-final */ class Story {
-    void recite(int chapter) throws Exception {}
-}
-class Adventure extends Story {
-    @Override
-    final void recite(final int chapter) {
-        switch (chapter) {
-            case 2: System.out.println(9);
-            default: System.out.println(3);
-        }
-    }
-}
-
-/**
- * QUESTION 9
- */
-class Phone {
-    private int size;
-    public Phone(int size) { this.size = size; }
-    public static void sendHome(/* final */ Phone p, int newSize) {
-        p = new Phone(newSize);                  // We create a new object, but the original reference 'p' it keeps.
-        p.size = 4;
-    }
-    public static void main() {
-        final var phone = new Phone(3);     // final only applies in this method scope.
-        // phone = new Phone(5);                // ERROR: Cannot assign a value to final variable 'phone'
-        sendHome(phone,7);
-        System.out.print(phone.size);
-    }
-}
-
-/**
- * QUESTION 13
- */
-class Car {
-    private static void drive() {
-        // static { System.out.println("static"); }  ERROR: Not allowed.
-        System.out.println("fast");
-        { System.out.println("faster"); }
-    }
-    public static void main() {
-        drive();
-        drive();
-    }
-}
-
-/**
- * QUESTION 24
- */
-interface Pump { void pump(double psi); }
-interface Bend /* extends Pump */ { void bend(double tensileStrength); }
-class Robot {
-    public static final void apply(Bend instruction, double input) {  // 'static final' combination are allowed in class methods.
-        instruction.bend(input);
-    }
-}
-
-/**
- * QUESTION 45
- */
-class Bottle {
-    static class Ship {
-        private enum Sail {             // w1
-            TALL { protected int getHeight() { return 100; }},
-            SHORT { protected int getHeight() { return 2; }};
-            protected abstract int getHeight();
-        }
-        public Sail getSail() {
-            return Sail.TALL;
-        }
-    }
-    public static void main() {
-        var bottle = new Bottle();
-        // Ship q = bottle.new Ship();     w2: A static nested class must be instantiated in a static manner.
-        Ship q = new Bottle.Ship();
-        System.out.print(q.getSail());
-    }
-}
-
-/**
- * QUESTION 55
- */
-abstract interface CanSwim {
-    public void swim(final int distance);
-}
-class Turtle {
-    final int distance = 2;
-    public static void main() {
-        final int distance = 3;
-        // CanSwim seaTurtle = { ... };         SYNTAX'S ERROR
-        CanSwim fixed = new CanSwim() {
-            final int distance = 5;
-            @Override
-            public void swim(final int distance) {
-                System.out.println(distance);
-            }
-        };
-        fixed.swim(7);
-    }
-}
-
-/**
- * QUESTION 67
- */
-class Cinema {
-    private String name = "Sequel";
-    public Cinema(String name) {
-        this.name = name;
-    }
-}
-class Movie extends Cinema {
-    private String name = "adaptation";
-    public Movie(String movie) {
-        super(movie);           // Cinema does not have a default constructor. We must specify one here to compile.
-        this.name = "Remake";
-    }
-    public static void main() {
-        System.out.print(new Movie("Trilogy").name);
-    }
-}
-
-/**
- * QUESTION 81
- */
-class Ship {
-    protected int weight = 3;
-    private int height = 5;
-    public int getWeight() { return weight; }
-    public int getHeight() { return height; }
-}
-class Rocket extends Ship {
-    public int weight = 2;
-    public int height = 4;
-    public void printDetails() {
-        // System.out.print(super.getWeight() + ", " + super.height);    ERROR: 'height' has private access in class Ship.
-        System.out.print(super.getWeight() + ", " + super.getHeight());
-    }
-    public static final void main() {
-        new Rocket().printDetails();
-    }
-}
-
-/**
- * QUESTION 83
- */
-interface Speak {
-    public default int getVolume() { return 20; }
-}
-interface Whisper {
-    public default int getVolume() { return 10; }
-}
-class Debate implements Speak, Whisper {
-    // public int getVolume() { return Whisper.super.getVolume(); }
-    public int getVolume() { return 30; }
-    public static void main() {
-        var d = new Debate();
-        // System.out.println(Whisper.super.getVolume()); ERROR: Whisper is not an enclosing class.
-        d.getVolume();
-    }
-}
-
-/**
- * QUESTION 85
- */
-class Bici {
-    static {
-        System.out.println("static");
-    }
-    private static void drive() {
-        System.out.println("fast");
-    }
-    { System.out.println("faster"); }
-    public static void main() {
-        drive();
-        drive();
-    }
-}
-
-/**
- * QUESTION 92
- */
-class Matrix {
-    private int level = 1;
-    class Deep {
-        private int level = 2;
-        class Deeper {
-            private int level = 5;
-            public void printReality(int level) {
-                System.out.print(this.level + " ");                 // PRINT: 5
-                System.out.print(Matrix.Deep.this.level + " ");     // PRINT: 2
-                System.out.print(Deep.this.level);                  // PRINT: 2
-            }
-        }
-    }
-    public static void main() {
-        Matrix.Deep.Deeper simulation = new Matrix().new Deep().new Deeper();
-        simulation.printReality(6);
-    }
-}
-
-/**
- * QUESTION 105
- */
-class Dolls {
-    // public int num() { return 3.0; }                 ERROR: Required type: int - Provided: double.
-    // public int size() { return 5L; }                 ERROR: Required type: int - Provided: long.
-    public int size() { return 5; }
-    public int num() { return 3; }
-
-    public void nested() { nested(2, true); }
-    public int nested(int w, boolean h) { return 0; }
-    public int nested(int level) { return level + 1; }
-
-    public static void main() {
-        // System.out.println(new Dolls().nested());    ERROR: Cannot resolve method 'println(void)'.
-        System.out.println(new Dolls().nested(5));
-    }
-}
-
-/**
- * QUESTION 116
- */
-class Woods {
-    static class Tree {}
-    public static void main() {
-        int heat = 2;
-        int water = 10 - heat;
-        final class Oak extends Tree {      // p1: Valid operation.
-            public int getWater() {
-                // return water;            // p2 ERROR: Variable 'water' needs to be final or effectively final.
-                return 5;
-            }
-        }
-        Oak oak = new Oak();
-        System.out.print(oak.getWater());
-        water = 0;                          // This line makes variable 'water' does not be effectively final.
-    }
-}
-
-/**
- * QUESTION 121
- */
-class Problem extends Exception {}
-abstract class Danger {
-    protected abstract void isDanger() throws Problem;  // m1
-}
-class SeriousDanger extends Danger {                    // m2
-    // protected void isDanger() throws Exception {}       m3 ERROR: overridden method does not throw 'Exception'.
-    protected void isDanger() throws Problem {
-        throw new RuntimeException("Is Danger...");     // m4 VALID: We can throw RTE despite the method can throw checked ones.
-    }
-    public static void main() throws Throwable {        // m5 VALID: Throwable is the superclass of all errors and exceptions.
-        // var sd = new SeriousDanger().isDanger();        m6 ERROR: variable initializer is 'void'.
-        new SeriousDanger().isDanger();
-    }
-}
-
-/**
- * QUESTION 125
- */
-interface Drive {
-    int SPEED = 5;
-    default int getSpeed() { return SPEED; }
-}
-interface Hover {
-    int MAX_SPEED = 10;
-    default int getSpeed() { return MAX_SPEED; }
-}
-// class CarTest implements Drive, Hover {}  ERROR: Class 'Car' inherits unrelated defaults types for getSpeed() from Drive and Hover.
-class CarTest implements Drive, Hover {
-    @Override
-    public int getSpeed() { return Drive.super.getSpeed() + Hover.super.getSpeed(); }
-    public static void main() {
-        class RaceCar extends CarTest {
-            @Override public int getSpeed() { return 15; }
-        };
-        System.out.print(new RaceCar().getSpeed());
-    }
-}
-
-/**
- * QUESTION 129
- */
-abstract class Trapezoid {
-    private int getEqualSides() { return 0; }
-}
-abstract class Rectangle extends Trapezoid {
-    public static int getEqualSides() { return 2; } // x1
-}
-final class Square extends Rectangle {
-    // public int getEqualSides() { return 4; }        x2 ERROR: Instance method cannot override static method 'getEqualSides()'.
-    public static void main() {
-        final Square myFigure = new Square();       // x3
-        System.out.print(myFigure.getEqualSides());
-    }
-}
-
-/**
- * QUESTION 134
- */
-class Gift {
-    // private final Object contents;                   ERROR: Variable 'contents' might not have been initialized.
-    private final Object contents = new Object();
-    protected Object getContents() {
-        return contents;
-    }
-    protected void setContents(Object contents) {
-        // this.contents = contents;                    ERROR: Cannot assign a value to final variable 'contents'.
-    }
-    public void showPresent() {
-        System.out.print("Your gift: " + contents);
-    }
-    public static void main() {
-        Gift gift = new Gift();
-        gift.setContents(gift);
-        gift.showPresent();
-    }
-}
-
-/**
- * QUESTION 140
- */
-class MathQ {
-    public final double secret = 2;
-}
-class ComplexMath extends MathQ {
-    public final double secret = 4;
-}
-class InfiniteMath extends ComplexMath {
-    public final double secret = 8;
-    public static void main() {
-        MathQ math = new InfiniteMath();
-        System.out.print(math.secret);
-    }
-}
-
-/**
- * QUESTION 142
- */
-class Penguin {
-    private int volume = 1;
-    private class Chick {
-        // private static int volume = 3;   ERROR: Static declarations in inner classes are not supported.
-        private int volume = 3;
-        void chick() {
-            System.out.print("Honk(" + Penguin.this.volume + ")!");  // PRINT: Honk(1)!
-        }
-    }
-    public static void main() {
-        Penguin pen = new Penguin();
-        final Penguin.Chick littleOne = pen.new Chick();
-        littleOne.chick();
-    }
-}
-
-/**
- * QUESTION 162
- */
-class Bond {
-    private static int price = 5;
-    public boolean sell() {
-        if (price < 10) {
-            price++;
-            return true;
-        } else // if (price >= 10) { return false; }
-            return false;
-    }                                                   // ERROR: Missing return statement
-    public static void main() {
-        new Bond().sell();
-        new Bond().sell();
-        new Bond().sell();
-        System.out.print(price);
-    }
-}
-
-/**
- * QUESTION 165
- */
-abstract class CarsTwo {
-    static { System.out.print("1"); }
-    public CarsTwo(String name) {   // Abstract classes cannot be instantiated, but child classes can call public constructors.
-        super();                    // VALID
-        System.out.print("2");
-    }
-    { System.out.print("3"); }
-}
-class BlueCar extends CarsTwo {
-    { System.out.print("4"); }
-    public BlueCar() {
-        super("blue");
-        System.out.print("5");
-    }
-    public static void main() {
-        new BlueCar();
-    }
-}
-
-/**
- * QUESTION 178
- */
-class Dragon {
-    boolean scaly;
-    static final int gold;
-    Dragon protectTreasure(int value, boolean scaly) {
-        scaly = true;
-        return this;
-    }
-    static void fly(boolean scaly) {
-        scaly = true;
-    }
-    int saveTheTreasure(boolean scaly) {
-        return this.gold;
-    }
-    static void saveTheDay(boolean scaly) {
-        // this.gold = 0;                       ERROR: 'this' cannot be referenced from a static context.
-        // gold = 0;                            ERROR: Cannot assign a value to final variable 'gold'.
-    }
-    static { gold = 100; }
-}
-
-/**
- * QUESTION 182
- */
-interface Planet {
-    // int circumference;                       ERROR: Variable 'circumference' might not have been initialized.
-    //                                                 Remember, interface variables are STATIC FINAL by default.
-    public static final int circumference = 100;
-    public abstract void enterAtmosphere();
-    public default int getCircumference() {
-        enterAtmosphere();
-        return circumference;
-    }
-    private static void leaveOrbit() {
-        var earth = new Planet() {
-            public void enterAtmosphere() {}    // We must override abstract method 'enterAtmosphere()'.
-        };
-        earth.getCircumference();
-    }
-}
-class PlanetTest implements Planet {
-    @Override
-    public void enterAtmosphere() {
-        System.out.println("Entering to the atmosphere...");
-    }
-}
-
-/**
- * QUESTION 184
- */
-class Husky {
-    { this.food = 10; }
-    { this.toy = 2; }
-    private final int toy;
-    private static int food;
-    public Husky(int friend) {
-        this.food += friend++;
-        // this.toy -= friend--;                ERROR: Variable 'toy' might already have been assigned.
-    }
-    public static void main() {
-        var h = new Husky(2);
-        System.out.println(h.food + "," + h.toy);
-    }
-}
-
-/**
- * QUESTION 188
- */
-interface Tasty {
-    default void eat() { System.out.print("Spoiled!"); }
-}
-class ApplePicking {
-    public static void main() {
-        var apple = new Tasty() {
-          // void eat() { System.out.print("Yummy!"); }         ERROR: attempting to assign weaker access privileges.
-          @Override
-          public void eat() { System.out.print("Yummy!"); }
-        };
-    }
-}
-
-/**
- * QUESTION 191
- */
-interface Tool {
-    void use(int fun);
-}
-abstract class Childcare {
-    abstract void use(int fun);
-}
-final class Stroller extends Childcare implements Tool {
-    final public void use(int fun) {                    // Declaring a method 'final' in a 'final' class is redundant.
-        int width = 5;
-        class ParkVisit {                               // Declaring a local class 'ParkVisit'.
-            int getValue() { return width + fun; }
-        }
-        System.out.print(new ParkVisit().getValue());   // Creating an instance of 'ParkVisit'.
-    }
-}
-
-/**
- * QUESTION 194
- */
-class RainForest extends Forest {
-    // public RainForest(long treeCount) {}      ERROR: There is no default constructor in 'Forest'.
-    public RainForest(long treeCount) {
-        super(treeCount);                     // FIXED: We need to call a no default constructor on 'Forest'.
-        this.treeCount = treeCount + 1;
-    }
-    public static void main() {
-        System.out.print(new RainForest(5).treeCount);
-    }
-}
-class Forest {
-    public long treeCount;
-    public Forest(long treeCount) {
-        this.treeCount = treeCount + 2;
-    }
-}
-
-/**
- * QUESTION 196
- *
- * Given that Short and Integer extend Number directly, what type can be used to fill in the blank in the following
- * class to allow it to compile?
- */
-interface Horn {
-    public Integer play();
-}
-abstract class Woodwind {
-    public Short play() {
-        return 3;
-    }
-}
-final class Saxophone {
-// final class Saxophone extends Woodwind implements Horn {
-    // public _______ play() { return null; }
-
-    // public Short   play() {}     ERROR: clashes with 'Horn';     attempting to use incompatible return type.
-    // public Integer play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
-    // public Number  play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
-    // public Object  play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
-}
-
-/**
- * QUESTION 198
- */
-enum Proposition {
-    // TRUE(1)       { String getNickName() { return "RIGHT"; }},           ERROR: attempting to assign weaker access.
-    TRUE(1)    { public String getNickName() { return "RIGHT"; }},
-    FALSE(2)   { public String getNickName() { return "WRONG"; }},
-    // UNKNOWN(3)    { public String getNickName() { return "LOST"; }}      ERROR: semicolon ';' required.
-    UNKNOWN(3) { public String getNickName() { return "LOST"; }};
-
-    public int value;
-    Proposition(int value) {
-        this.value = value;
-    }
-    public int getValue() {
-        return this.value;
-    }
-    protected abstract String getNickName();
-}
-
-/**
- * QUESTION 200
- */
-class Grasshopper extends Hooper {
-    public void move() {
-        hop();              // p1 NOTE: Only 'Grasshopper' can call 'hop()' method, because it is extending 'Hooper'.
-    }
-}
-class HopCounter {
-    public static void main(String[] args) {
-        var hopper = new Grasshopper();
-        hopper.move();      // p2
-        // hopper.hop();    // p3 ERROR: 'hop()' has protected access in 'com.hiperium.java.cert.practice.aux.Hooper'.
-    }
-}
-
-/**
- * QUESTION 209
- */
-interface Ready {
-    static int first = 2;
-    final short DEFAULT_VALUE = 10;
-    GetSet go = new GetSet();                   // n1 ===>>> OK
-}
-class GetSet implements Ready {
-    int first = 5;
-    static int second = DEFAULT_VALUE;          // n2 ===>>> OK
-    // static int third = first;                ERROR: Non-static field 'first' cannot be referenced from a static context.
-    static int third = Ready.first;
-    int fourth = first + 1;
-
-    public static void main() {
-        var r = new Ready() {};
-        System.out.print(r.first);              // n3 ===>>> OK
-        System.out.print(" " + second);         // n4 ===>>> OK
-    }
-}
-
-/**
- * QUESTION 212
- *
- class Rotorcraft                       ERROR: Class must be declared abstract or implement abstract method 'fly()'. */
-abstract class Rotorcraft {
-    protected final int height = 5;
-    abstract int fly();              // NOTE: Method 'fly()' has package-private access
-}
-interface CanFly {}
-class Helicopter extends Rotorcraft implements CanFly {
-    private int height = 10;
-    protected int fly() {                                // NOTE: It can be protected, but not private.
-        return super.height;
-    }
-    public static void main() {
-        // Helicopter h = (Helicopter) new Rotorcraft();    ERROR: 'Rotorcraft' is abstract; cannot be instantiated.
-    }
-}
-
-/**
- * QUESTION 213
- */
-interface Alex {
-    default void write() { System.out.print("1"); }     // NOTE: Method with 'public' access by default.
-    static void publish() {}
-    void think();                                       // NOTE: Method with 'public' access and 'abstract' by default.
-    private int process() { return 80; }
-}
-interface Michael {
-    default void write() { System.out.print("2"); }     // NOTE: Method with 'public' access by default.
-    static void publish() {}
-    void think();                                       // NOTE: Method with 'public' access and 'abstract' by default.
-    private int study() { return 100; }
-}
-class Twins implements Alex, Michael {
-    // void write() { System.out.print("3"); }          ERROR: attempting to assign weaker access privileges.
-    public void write() { System.out.print("3"); }
-    static void publish() {}
-    // void think() {                                   ERROR: attempting to assign weaker access privileges.
-    public void think() {
-        System.out.print("Thinking...");
-    }
-}
-
-/**
- * QUESTION 214
- */
-class Electricity {
-    interface Power {}
-    public static void main() {
-        class Source implements Power {};
-        final class Super extends Source {};
-        // var start = new Super() {};                  ERROR: Cannot inherit from final.
-        var end = new Source() {
-            // static boolean t = true;                 ERROR: Static declarations in inner classes are not supported.
-        };
-    }
-}
-
-/**
- * QUESTION 215
- */
-class ReadyQuestion {
-    protected static int first = 2;
-    private final short DEFAULT_VALUE = 10;             // NOTE: Non-static field variable declaration.
-    private static class GetSet {
-        int first = 5;
-        // static int second = DEFAULT_VALUE;           ERROR: 'DEFAULT_VALUE' cannot be referenced from a static context.
-        static int second = 20;
-    }
-    private GetSet go = new GetSet();
-    public static void main() {
-        ReadyQuestion r = new ReadyQuestion();
-        System.out.print(r.go.first);
-        System.out.print(", " + r.go.second);
-    }
-    public void ReadyQuestion() {
-        // super();                                     ERROR: Call to 'super()' must be first statement in constructor body.
-    }
-}
-
-/**
- * QUESTION 219
- */
-abstract class Ball {
-    protected final int size;
-    public Ball(int size) {
-        this.size = size;
-    }
-}
-interface Equipment {}
-class SoccerBall extends Ball implements Equipment {
-    public SoccerBall() {
-        super(5);
-    }
-    public Ball get() { return this; }
-    public static void main() {
-        var equipment = (Equipment) (Ball) new SoccerBall().get();
-        System.out.println("Var equipment class: " + equipment.getClass().getSimpleName());  // PRINT: SoccerBall.
-        System.out.println(((SoccerBall) equipment).size);                                   // PRINT: 5.
-    }
-}
-
-/**
- * QUESTION 220
- */
-interface LongQuestion{     // It can be named Long, but the Chapter3Test class will not compile.
-    Number length();
-}
-class Elephant {
-    public class Trunk implements LongQuestion {
-        public Number length() { return 6; }    // k1
-    }
-    public class MyTrunk extends Trunk {        // k2:  NOTE THAT THIS IS AN INNER CLASS, NOT A STATIC ONE.
-        public Integer length() { return 9; }   // k3
-    }
-    public static void charge() {
-        // System.out.print(new MyTrunk().length());    ERROR: 'this' cannot be referenced from a static context.
-        // MyTrunk obj = new MyTrunk();                 NOTE: If 'MyTrunk' was declared static, then this line compiles.
-    }
-    public static void main() {
-        new Elephant().charge();                // k4
-    }
-}
-
-/**
- * **********************************   **********************************   **********************************
- * **********************************   **********************************   **********************************
- * **********************************   **********************************   **********************************
- *
  * Java Object‐Oriented Approach:
+ *
  *      - Declare and instantiate Java objects including nested class objects, and explain objects' lifecycles
  *        (including creation, de-referencing by reassignment, and garbage collection).
  *      - Define and use fields and methods, including instance, static and overloaded methods.
@@ -750,18 +17,28 @@ class Elephant {
  *      - Utilize polymorphism and casting to call methods, differentiate object type versus reference type.
  *      - Create and use interfaces, identify functional interfaces, and utilize private, static, and default methods.
  *      - Create and use enumerations.
- *
- * ***********************************   **********************************   **********************************
- * ***********************************   **********************************   **********************************
- * ***********************************   **********************************   **********************************
  */
 public class Chapter3Test {
 
     /**
+     * QUESTION 1:
+     *
      * What is the output of the following application?
      * <p>
-     * R./ The code does not compile because Story class its final and cannot be extended by Adventure class.
-     */
+     * NOTE: The code does not compile because Story class its final and cannot be extended by Adventure class.
+     *
+     final */ class Story {
+        void recite(int chapter) throws Exception {}
+    }
+    class Adventure extends Story {
+        @Override
+        final void recite(final int chapter) {
+            switch (chapter) {
+                case 2: System.out.println(9);
+                default: System.out.println(3);
+            }
+        }
+    }
     @Test
     public void question1() {
         var bedtime = new Adventure();
@@ -769,12 +46,43 @@ public class Chapter3Test {
         Assert.assertTrue(true);
     }
 
+    /**
+     * QUESTION 9
+     */
+    static class Phone {
+        private int size;
+        public Phone(int size) { this.size = size; }
+        public static void sendHome(/* final */ Phone p, int newSize) {
+            p = new Phone(newSize);                  // We create a new object, but the original reference 'p' it keeps.
+            p.size = 4;
+        }
+        public static void main() {
+            final var phone = new Phone(3);     // final only applies in this method scope.
+            // phone = new Phone(5);                // ERROR: Cannot assign a value to final variable 'phone'
+            sendHome(phone,7);
+            System.out.print(phone.size);
+        }
+    }
     @Test
     public void question9() {
         Phone.main();
         Assert.assertTrue(true);
     }
 
+    /**
+     * QUESTION 13
+     */
+    static class Car {
+        private static void drive() {
+            // static { System.out.println("static"); }         ERROR: Not allowed.
+            System.out.println("fast");
+            { System.out.println("faster"); }
+        }
+        public static void main() {
+            drive();
+            drive();
+        }
+    }
     @Test
     public void question13() {
         Car.main();
@@ -786,17 +94,24 @@ public class Chapter3Test {
      */
     interface Question14 {
                 static void defaultAccess()     {}
-        private static void privateAccess()     {}
         public  static void publicAccess()      {}
+        private static void privateAccess()     {}
      // public  static final void finalAccess() {}  ERROR: Illegal combination of modifiers: 'static' and 'final'.
-     // protected static void protectedAccess() {}  ERROR: Modifier 'protected' not allowed here
+     // protected static void protectedAccess() {}  ERROR: Modifier 'protected' not allowed here.
     }
 
     /**
      * What is the output of the following application?
      *
-     * R./ The code does not compile because Bend is not a functional interface.
+     * NOTE: The code does not compile because Bend is not a functional interface.
      */
+    interface Pump { void pump(double psi); }
+    interface Bend /* extends Pump */ { void bend(double tensileStrength); }
+    static class Robot {
+        public static final void apply(Bend instruction, double input) {
+            instruction.bend(input);
+        }
+    }
     @Test
     public void question24() {
         final Robot robot = new Robot();
@@ -864,9 +179,11 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 42:
+     *
      * What is the minimum number of lines that need to be removed to make this code compile?
      * <p>
-     * R./ The code compiles as is.
+     * NOTE: The code compiles as is.
      */
     @FunctionalInterface
     public interface Question42 {
@@ -874,10 +191,33 @@ public class Chapter3Test {
         private static void soccer() {}
         default void play() {}
         void fun();
-        // void run();  IF UNCOMMENT: Multiple non-overriding abstract methods found in interface.
     }
 
     /**
+     * QUESTION 45
+     */
+    static class Bottle {
+        static class Ship {
+            private enum Sail {                                     // w1
+                TALL { protected int getHeight() { return 100; }},
+                SHORT { protected int getHeight() { return 2; }};
+                protected abstract int getHeight();
+            }
+            public Sail getSail() {
+                return Sail.TALL;
+            }
+        }
+        public static void main() {
+            var bottle = new Bottle();
+            // Ship q = bottle.new Ship();     w2 ERROR: A static nested class must be instantiated in a static manner.
+            Ship q = new Bottle.Ship();
+            System.out.print(q.getSail());
+        }
+    }
+
+    /**
+     * QUESTION 50:
+     *
      * Which statement about the following program is correct? (Choose two.)
      * <p>
      * B. The code does not compile because of line u2.
@@ -898,8 +238,28 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 55:
+     *
      * What is the output of the following application?
      */
+    abstract interface CanSwim {
+        public void swim(final int distance);
+    }
+    static class Turtle {
+        final int distance = 2;
+        public static void main() {
+            final int distance = 3;
+            // CanSwim seaTurtle = { ... };         ERROR: ANONYMOUS CLASS INIT ERROR.
+            CanSwim fixed = new CanSwim() {
+                final int distance = 5;
+                @Override
+                public void swim(final int distance) {
+                    System.out.println(distance);
+                }
+            };
+            fixed.swim(7);
+        }
+    }
     @Test
     public void question55() {
         Turtle.main();
@@ -907,39 +267,62 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 58:
+     *
      * Which is the first declaration to not compile?
      * <p>
      * R./ The DesertTortoise (Question58) interface does not compile.
      */
     interface CanBurrow { public abstract void burrow(); }
-    @FunctionalInterface interface HasHardShell extends CanBurrow {}
+    @FunctionalInterface
+    interface HasHardShell extends CanBurrow {}
+
     abstract class Tortoise implements HasHardShell {
         public abstract int toughness();
     }
     public class Question58 extends Tortoise {
-        public int toughness() { return 11; }
-        @Override public void burrow() {}       // Class Question58 must implement this method too to compile.
+        @Override public int toughness() { return 11; }
+        @Override public void burrow() {}                   // "burrow" must be implemented to compile.
+    }
+
+    /**
+     * QUESTION 67:
+     */
+    static class Cinema {
+        private String name = "Sequel";
+        public Cinema(String name) {
+            this.name = name;
+        }
+    }
+    static class Movie extends Cinema {
+        private String name = "adaptation";
+        public Movie(String movie) {
+            // ERROR: Cinema class does not have a default constructor. We must declare the overloaded one here.
+            super(movie);
+            this.name = "Remake";
+        }
+        public static void main() {
+            System.out.print(new Movie("Trilogy").name);
+        }
     }
 
     /**
      * What is the output of the following code?
      *
-     * Note: This example deals with method signatures rather than polymorphism. Since hop() methods are static,
+     * Note: This example deals with method signatures rather than polymorphism. Since "hop()" methods are static,
      * the precise method called depends on the reference type rather than the actual type of the object.
      */
     static interface Rabbit { }
-    static class FlemishRabbit implements Rabbit { }
-    private void hop(Rabbit r) {
-        System.out.println("hop");
-    }
+    static class FlemishRabbit implements Rabbit {}
+    private void hop(Rabbit r)        { System.out.println("hop");}
     private void hop(FlemishRabbit r) {
         System.out.println("HOP");
     }
     @Test
     public void question69() {
         Rabbit r1 = new FlemishRabbit();
-        FlemishRabbit r2 = new FlemishRabbit();
         hop(r1);                                    // PRINT: hop
+        FlemishRabbit r2 = new FlemishRabbit();
         hop(r2);                                    // PRINT: HOP
         Assert.assertTrue(true);
     }
@@ -952,7 +335,7 @@ public class Chapter3Test {
     public void playMusic() {
         System.out.print("Play!");
     }
-    // private static void playMusic() { System.out.print("Music!"); }  ERROR: 'playMusic()' is already defined.
+    // private static void playMusic() { ... }      ERROR: 'playMusic()' is already defined.
     private static void playMusic(String song) {
         System.out.print(song);
     }
@@ -1006,10 +389,27 @@ public class Chapter3Test {
     }
 
     /**
-     * What is the output of the Rocket program?
+     * QUESTION 81:
      *
-     * R./ The code does not compile.
+     * What is the output of the Rocket program?
      */
+    static class Ship {
+        protected int weight = 3;
+        private int height = 5;
+        public int getWeight() { return weight; }
+        public int getHeight() { return height; }
+    }
+    static class Rocket extends Ship {
+        public int weight = 2;
+        public int height = 4;
+        public void printDetails() {
+            // System.out.print(super.getWeight() + ", " + super.height);    ERROR: 'height' has private access in class Ship.
+            System.out.print(super.getWeight() + ", " + super.getHeight());
+        }
+        public static final void main() {
+            new Rocket().printDetails();
+        }
+    }
     @Test
     public void question81() {
         Rocket.main();
@@ -1017,6 +417,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 83:
+     *
      * Fill in the blank with the line of code that allows the program to compile and print 10 at runtime.
      *
      * R./ None of the above.
@@ -1024,20 +426,45 @@ public class Chapter3Test {
      * Note: If we want resolve this question, we need to change de implementation of overridden method getVolume()
      * on Debate class to call the Whisper version of the method using Whisper.super.getVolume()
      */
+    interface Speak {
+        public default int getVolume() { return 20; }
+    }
+    interface Whisper {
+        public default int getVolume() { return 10; }
+    }
+    static class Debate implements Speak, Whisper {
+        // public int getVolume() { return Whisper.super.getVolume(); }
+        public int getVolume() { return 30; }
+        public static void main() {
+            var d = new Debate();
+            // System.out.println(Whisper.super.getVolume());       ERROR: Whisper is not an enclosing class.
+            d.getVolume();
+        }
+    }
     @Test
     public void question83() {
         Debate.main();
         Assert.assertTrue(true);
     }
 
-
     /**
      * How many lines does the following code output?
-     * R./
-     * static.
-     * fast.
-     * fast.
+     *
+     * static, fast, fast.
      */
+    static class Bici {
+        static {
+            System.out.println("static");
+        }
+        private static void drive() {
+            System.out.println("fast");
+        }
+        { System.out.println("faster"); }
+        public static void main() {
+            drive();
+            drive();
+        }
+    }
     @Test
     public void question85() {
         Bici.main();
@@ -1045,10 +472,30 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 92:
+     *
      * What is the output of the following application?
      * <p>
      * R./ 5 2 2
      */
+    static class Matrix {
+        private int level = 1;
+        class Deep {
+            private int level = 2;
+            class Deeper {
+                private int level = 5;
+                public void printReality(int level) {
+                    System.out.print(this.level + " ");                 // PRINT: 5
+                    System.out.print(Matrix.Deep.this.level + " ");     // PRINT: 2
+                    System.out.print(Deep.this.level);                  // PRINT: 2
+                }
+            }
+        }
+        public static void main() {
+            Matrix.Deep.Deeper simulation = new Matrix().new Deep().new Deeper();
+            simulation.printReality(6);
+        }
+    }
     @Test
     public void question92() {
         Matrix.main();
@@ -1056,6 +503,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 93:
+     *
      * Given that Integer and Long are direct subclasses of Number, what type can be used to fill in the blank in the
      * following class to allow it to compile?
      *
@@ -1088,6 +537,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 94:
+     *
      * What is the output of the RightTriangle program?
      * <p>
      * R./ The code does not compile due to line g3.
@@ -1106,6 +557,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 95:
+     *
      * What is the output of the following program?
      */
     interface Dog {
@@ -1150,6 +603,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 102:
+     *
      * What is true of the following code?
      * <p>
      * R./ 20 20 75
@@ -1176,9 +631,9 @@ public class Chapter3Test {
     }
 
     /**
-     * What is the output of the following application?
+     * QUESTION 104:
      *
-     * R./ The Bank class does not compile.
+     * What is the output of the following application?
      */
     enum Currency {
         DOLLAR, YEN, EURO
@@ -1193,10 +648,10 @@ public class Chapter3Test {
     public void question104() {
         int value = 0;
         switch(new Bank().c) {      // We use the Currency.DOLLAR value defined Bank class.
-            // case 0:              ERROR: Required type: Currency - Provided: int. We can use new Bank().c.ordinal() instead.
+            // case 0:              ERROR: Required type: Currency - Provided: int. We can use new Bank().c.ordinal().
             case DOLLAR:
                 value--; break;
-            // case 1:              ERROR: Required type: Currency - Provided: int. We can use new Bank().c.ordinal() instead.
+            // case 1:              ERROR: Required type: Currency - Provided: int. We can use new Bank().c.ordinal().
             case EURO:
                 value++; break;
         }
@@ -1209,6 +664,21 @@ public class Chapter3Test {
      *
      * R./ Three.
      */
+    static class Dolls {
+        // public int num() { return 3.0; }                 ERROR: Required type: int - Provided: double.
+        // public int size() { return 5L; }                 ERROR: Required type: int - Provided: long.
+        public int size() { return 5; }
+        public int num() { return 3; }
+
+        public void nested() { nested(2, true); }
+        public int nested(int w, boolean h) { return 0; }
+        public int nested(int level) { return level + 1; }
+
+        public static void main() {
+            // System.out.println(new Dolls().nested());    ERROR: Cannot resolve method 'println(void)'.
+            System.out.println(new Dolls().nested(5));
+        }
+    }
     @Test
     public void question105() {
         Dolls.main();
@@ -1218,6 +688,22 @@ public class Chapter3Test {
     /**
      * What is the output of the following application?
      */
+    static class Woods {
+        static class Tree {}
+        public static void main() {
+            int heat = 2;
+            int water = 10 - heat;
+            final class Oak extends Tree {      // p1: Valid operation.
+                public int getWater() {
+                    // return water;            // p2 ERROR: Variable 'water' needs to be final or effectively final.
+                    return 5;
+                }
+            }
+            Oak oak = new Oak();
+            System.out.print(oak.getWater());
+            water = 0;                          // This line makes variable 'water' does not be effectively final.
+        }
+    }
     @Test
     public void question116() {
         Woods.main();
@@ -1226,10 +712,24 @@ public class Chapter3Test {
 
     /**
      * Which statements about the following program are correct? (Choose two.)
-     * R./
+     *
      * The code does not compile because of line m3.
      * The code does not compile because of line m6.
      */
+    class Problem extends Exception {}
+    static abstract class Danger {
+        protected abstract void isDanger() throws Problem;  // m1
+    }
+    static class SeriousDanger extends Danger {                    // m2
+        // protected void isDanger() throws Exception {}       m3 ERROR: overridden method does not throw 'Exception'.
+        protected void isDanger() throws Problem {
+            throw new RuntimeException("Is Danger...");     // m4 VALID: We can throw RTE despite the method can throw checked ones.
+        }
+        public static void main() throws Throwable {        // m5 VALID: Throwable is the superclass of all errors and exceptions.
+            // var sd = new SeriousDanger().isDanger();        m6 ERROR: variable initializer is 'void'.
+            new SeriousDanger().isDanger();
+        }
+    }
     @Test
     public void question121() {
         try {
@@ -1241,10 +741,33 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 125:
+     *
      * What is the output of the following application?
      * <p>
      * R./ The code does not compile.
      */
+    interface Drive {
+        int SPEED = 5;
+        default int getSpeed() { return SPEED; }
+    }
+    interface Hover {
+        int MAX_SPEED = 10;
+        default int getSpeed() { return MAX_SPEED; }
+    }
+    // ERROR: Class 'CarTest' inherits unrelated defaults types for "getSpeed()" from Drive and Hover.
+    // class CarTest implements Drive, Hover {}
+
+    static class CarTest implements Drive, Hover {
+        @Override
+        public int getSpeed() { return Drive.super.getSpeed() + Hover.super.getSpeed(); }
+        public static void main() {
+            class RaceCar extends CarTest {
+                @Override public int getSpeed() { return 15; }
+            };
+            System.out.print(new RaceCar().getSpeed());
+        }
+    }
     @Test
     public void question125() {
         CarTest.main();
@@ -1293,20 +816,53 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 129:
+     *
      * What is the output of the Square program?
      */
+    static abstract class Trapezoid {
+        private int getEqualSides() { return 0; }
+    }
+    static abstract class Rectangle extends Trapezoid {
+        public static int getEqualSides() { return 2; }     // x1
+    }
+    static final class Square extends Rectangle {
+        // ERROR: Instance method cannot override static method 'getEqualSides()'.
+        // public int getEqualSides() { return 4; }         x2
+        public static void main() {
+            final Square myFigure = new Square();           // x3
+            System.out.print(myFigure.getEqualSides());
+        }
+    }
     @Test
     public void question129() {
         Square.main();
         Assert.assertTrue(true);
     }
 
-
     /**
-     * What is a possible output of the following application?
+     * QUESTION 134:
      *
-     * R./ It does not compile.
+     * What is a possible output of the following application?
      */
+    static class Gift {
+        private final Object contents = new Object();
+        // private final Object contents;                   ERROR: Variable 'contents' might not have been initialized.
+        protected Object getContents() {
+            return contents;
+        }
+        protected void setContents(Object contents) {
+            // this.contents = contents;                    ERROR: Cannot assign a value to final variable 'contents'.
+        }
+        public void showPresent() {
+            System.out.print("Your gift: " + contents);
+        }
+        public static void main() {
+            Gift gift = new Gift();
+            gift.setContents(gift);
+            gift.showPresent();
+        }
+    }
     @Test
     public void question134() {
         Gift.main();
@@ -1333,6 +889,8 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 139:
+     *
      * Which of the following are valid class declarations?
      *
      * Notes:
@@ -1354,6 +912,8 @@ public class Chapter3Test {
     // class var  {}    ERROR: 'var' is a restricted identifier.
 
     /**
+     * QUESTION 140:
+     *
      * What is the output of the InfiniteMath program?
      * <p>
      * Java allows methods to be overridden, but not variables. Therefore, marking them final does not prevent them
@@ -1361,6 +921,19 @@ public class Chapter3Test {
      * methods as it does to variables. In particular, the reference type determines the version of the secret variable
      * that is selected, making the output 2.0.
      */
+    static class MathQ {
+        public final double secret = 2;
+    }
+    static class ComplexMath extends MathQ {
+        public final double secret = 4;
+    }
+    static class InfiniteMath extends ComplexMath {
+        public final double secret = 8;
+        public static void main() {
+            MathQ math = new InfiniteMath();
+            System.out.print(math.secret);
+        }
+    }
     @Test
     public void question140() {
         InfiniteMath.main();
@@ -1368,34 +941,87 @@ public class Chapter3Test {
     }
 
     /**
-     * What is the output of the following application?
+     * QUESTION 141:
      *
-     * R./ The code does not compile.
+     * Given the following application, which diagram best represents the state of the "mySkier", "mySpeed", and
+     * "myName" variables in the main() method after the call to the slalom() method?
      */
+    static public class Ski {
+        private int age = 18;
+        private static void slalom(Ski racer, int[] speed, String name) {
+            racer.age = 18;
+            name = "Wendy";
+            speed = new int[1];
+            speed[0] = 11;
+            racer = null;
+        }
+        @Override
+        public String toString() { return "Ski{age=" + age + '}'; }
+        public static void main() {
+            final var mySkier = new Ski();
+            mySkier.age = 16;
+            final int[] mySpeed = new int[1];
+            final String myName = "Rosie";
+            slalom(mySkier, mySpeed, myName);
+            System.out.println("mySkier = " + mySkier);                     // PRINT: Ski{age=18}
+            System.out.println("mySpeed = " + Arrays.toString(mySpeed));    // PRINT: [0]
+            System.out.println("myName = " + myName);                       // PRINT: Rosie
+        }
+    }
     @Test
-    public void question142() {
-        Penguin.main();
+    public void question141() {
+        Ski.main();
         Assert.assertTrue(true);
     }
 
     /**
+     * QUESTION 142:
+     *
+     * What is the output of the following application?
+     */
+    private int volume = 1;
+    private class Chick142 {
+        // private static int volume = 3;       ERROR: Static declarations in inner classes are not supported.
+        private static final int volume = 3;    // Member inner classes can be declared static, if they are final too.
+        void chick() {
+            System.out.print("Honk(" + Chapter3Test.this.volume + ")!");     // PRINT: Honk(1)!
+        }
+    }
+    @Test
+    public void question142() {
+        final Chapter3Test.Chick142 littleOne = this.new Chick142();
+        littleOne.chick();
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 146:
+     *
      * What is the output of the ElectricCar program?
      */
-    class Automobile {
-        private final String drive() { return "Driving vehicle"; }
+    static class Automobile {
+        private final String drive() {
+            return "Driving vehicle";
+        }
     }
-    class Cars extends Automobile {
-        protected String drive() { return "Driving car"; }
+    static class Cars extends Automobile {
+        protected String drive() {
+            return "Driving car";
+        }
     }
-    public class ElectricCar extends Cars {
-        @Override
-        public final String drive() { return "Driving electric car"; }
+    static public class ElectricCar extends Cars {
+        public final String drive() {
+            return "Driving electric car";
+        }
+        public static void main() {
+            final Automobile car = new ElectricCar();
+            Cars v = (Cars) car;
+            System.out.print(v.drive());                // PRINT: Driving electric car.
+        }
     }
     @Test
     public void question146() {
-        final Automobile car = new ElectricCar();
-        var v = (Cars) car;
-        System.out.print(v.drive());            // PRINT: Driving electric car.
+        ElectricCar.main();
         Assert.assertTrue(true);
     }
 
@@ -1407,7 +1033,7 @@ public class Chapter3Test {
         private abstract class Sky {
             void fall() {
                 // var e1 = new Sky();             ERROR: Class 'Sky' is abstract and cannot be instantiated.
-                var e2 = new Sky() {};          // VALID: we are extending the class 'Sky'.
+                var e2 = new Sky() {};          // VALID: we are extending the class 'Sky' using an empty braces {}.
                 var e3 = new Sky() {            // VALID: we are extending the class 'Sky'.
                     final static int blue = 1;
                 };
@@ -1416,33 +1042,60 @@ public class Chapter3Test {
     }
 
     /**
-     * What is the output of the following program?
+     * QUESTION 149
+     */
+    static abstract class Book {
+        protected static String material = "papyrus";
+        public Book() {}
+        // abstract String read() {}        ERROR: Abstract methods cannot have a body.
+        abstract String read();
+        public Book(String material) { this.material = material; }
+    }
+    static public class Encyclopedia extends Book {
+        public static String material = "cellulose";
+        public Encyclopedia() { super(); }
+        public String read() { return "Reading is fun!"; }
+        public String getMaterial() { return super.material; }
+
+        public static void main() {
+            System.out.println(new Encyclopedia().read());              // PRINT: Reading is fun!
+            System.out.println(new Encyclopedia().getMaterial());       // PRINT: papyrus
+        }
+    }
+    @Test
+    public void question149() {
+       Encyclopedia.main();
+       Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 152:
      *
-     * R./ The code does not compile.
+     * What is the output of the following program?
      */
     public class Dwarf {
-        // private final String name;          ERROR: Variable 'name' might not have been initialized. If var 'name' was
-        //                                            not final, then it defaults value was 'null'.
+        // private final String name;           ERROR: Variable 'name' might not have been initialized. If var 'name' was
+                                                //     not final, then it defaults value was 'null'.
         private final String name = null;
         public Dwarf() {
             this("Bashful");
         }
         public Dwarf(String name) {
-            name = "Sleepy";                // We are not assigning a value to the instance variable 'name'.
-            // this.name = "Sleepy";           ERROR: Cannot assign a value to the final variable 'name'.
+            name = "Sleepy";                    // We are not assigning a value to the instance variable 'name'.
+            // this.name = "Sleepy";            ERROR: Cannot assign a value to the final variable 'name'.
         }
     }
     @Test
     public void question152() {
         var d = new Dwarf("Doc");
-        System.out.println(d.name);         // PRINT: null
+        System.out.println(d.name);             // PRINT: null
         Assert.assertTrue(true);
     }
 
     /**
+     * QUESTION 153:
+     *
      * What is the output of the following application?
-     * <p>
-     * R./ 8
      */
     interface AddNumbers {
         int add(int x, int y);
@@ -1451,22 +1104,39 @@ public class Chapter3Test {
     }
     public class Calculator {
         protected void calculate(AddNumbers n, int a, int b) {
-            System.out.print(n.add(a, b));              // PRINT: 8
+            System.out.print(n.add(a, b));                          // PRINT: 8
         }
     }
     @Test
     public void question153() {
-        final var ti = new Calculator() {};             // We are extending the class Calculator. All additional
-        //                                                 implementation is assigned to variable 'ti'.
-        ti.calculate((k, p) -> p + k + 1, 2, 5);  //  j1: Variable 'ti' can call the inhered method 'calculate()'.
+        final var ti = new Calculator() {};             // We are extending the class Calculator.
+        ti.calculate((k, p) -> p + k + 1, 2, 5);   // j1: Variable 'ti' can call the inhered method 'calculate()'.
         Assert.assertTrue(true);
     }
 
     /**
+     * QUESTION 162:
+     *
      * What is the output of the following application?
      * <p>
      * R./ The code does not compile.
      */
+    static class Bond {
+        private static int price = 5;
+        public boolean sell() {
+            if (price < 10) {
+                price++;
+                return true;
+            } else // if (price >= 10) { return false; }
+                return false;
+        }                                                   // ERROR: Missing return statement
+        public static void main() {
+            new Bond().sell();
+            new Bond().sell();
+            new Bond().sell();
+            System.out.print(price);
+        }
+    }
     @Test
     public void question162() {
         Bond.main();
@@ -1474,7 +1144,9 @@ public class Chapter3Test {
     }
 
     /**
-     * Question 164: Which statements about static initializers are correct?
+     * Question 164:
+     *
+     * Which statements about static initializers are correct?
      *
      * 1. They cannot be used to create instances of the class they are contained in.
      * 2. They can assign a value to a static final variable.
@@ -1489,10 +1161,31 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 165:
+     *
      * What is the output of the BlueCar program?
      *
      * R./ 13245
      */
+    static abstract class CarsTwo {
+        static { System.out.print("1"); }
+        public CarsTwo(String name) {
+            // NOTE: Abstract classes cannot be instantiated, but child classes can call public constructors.
+            super();
+            System.out.print("2");
+        }
+        { System.out.print("3"); }
+    }
+    static class BlueCar extends CarsTwo {
+        { System.out.print("4"); }
+        public BlueCar() {
+            super("blue");
+            System.out.print("5");
+        }
+        public static void main() {
+            new BlueCar();
+        }
+    }
     @Test
     public void question165() {
         BlueCar.main();
@@ -1558,10 +1251,57 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 178:
+     */
+    static class Dragon {
+        boolean scaly;
+        static final int gold;
+        Dragon protectTreasure(int value, boolean scaly) {
+            scaly = true;
+            return this;
+        }
+        static void fly(boolean scaly) {
+            scaly = true;
+        }
+        int saveTheTreasure(boolean scaly) {
+            return this.gold;
+        }
+        static void saveTheDay(boolean scaly) {
+            // this.gold = 0;                       ERROR: 'this' cannot be referenced from a static context.
+            // gold = 0;                            ERROR: Cannot assign a value to final variable 'gold'.
+        }
+        static { gold = 100; }
+    }
+
+    /**
+     * QUESTION 182:
+     *
      * Which statement about the following interface is correct?
      *
-     * R./ The code does not compile for a different reason.
+     * The code does not compile for a different reason.
      */
+    interface Planet {
+        // NOTE: interface variables are STATIC FINAL by default.
+        // int circumference;                       ERROR: Variable 'circumference' might not have been initialized.
+        public static final int circumference = 100;
+        public abstract void enterAtmosphere();
+        public default int getCircumference() {
+            enterAtmosphere();
+            return circumference;
+        }
+        private static void leaveOrbit() {
+            var earth = new Planet() {
+                public void enterAtmosphere() {}    // We must override abstract method 'enterAtmosphere()'.
+            };
+            earth.getCircumference();
+        }
+    }
+    class PlanetTest implements Planet {
+        @Override
+        public void enterAtmosphere() {
+            System.out.println("Entering to the atmosphere...");
+        }
+    }
     @Test
     public void question182() {
         PlanetTest planetTest = new PlanetTest();
@@ -1573,6 +1313,20 @@ public class Chapter3Test {
      *
      * R./ The code does not compile for a different reason.
      */
+    static class Husky {
+        { this.food = 10; }
+        { this.toy = 2; }
+        private final int toy;
+        private static int food;
+        public Husky(int friend) {
+            this.food += friend++;
+            // this.toy -= friend--;        ERROR: Variable 'toy' might already have been assigned.
+        }
+        public static void main() {
+            var h = new Husky(2);
+            System.out.println(h.food + "," + h.toy);
+        }
+    }
     @Test
     public void question184() {
         Husky.main();
@@ -1580,6 +1334,50 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 185:
+     *
+     * Suppose you have the following code. Which of the images best represents the state of the references right before
+     * the end of the main() method, assuming garbage collection hasn't run?
+     */
+    static public class Link {
+        private final String name;
+        private Link next;
+        public Link(String name, Link next) {
+            this.name = name;
+            this.next = next;
+        }
+        public void setNext(Link next) {
+            this.next = next;
+        }
+        public String toString() {
+            return "Link{ name='" + name + '\'' + '}';
+        }
+        public static void main() {
+            var apple = new Link("x", null);
+            var orange = new Link("y", apple);
+            var banana = new Link("z", orange);
+            orange.setNext(banana);
+            banana.setNext(orange);
+            apple = null;
+            banana = null;
+            System.out.println("apple = " + apple);                                     // PRINT: null
+            System.out.println("banana = " + banana);                                   // PRINT: null
+            System.out.println("orange = " + orange);                                   // PRINT: Link{ name='y' }
+            System.out.println("orange.next = " + orange.next);                         // PRINT: Link{ name='z'}
+            System.out.println("orange.next.next = " + orange.next.next);               // PRINT: Link{ name='y'}
+            System.out.println("orange.next.next.next = " + orange.next.next.next);     // PRINT: Link{ name='z'}
+            // NOTE: "orange" ends in a loop, linked with initial "banana" object.
+        }
+    }
+    @Test
+    public void question185() {
+        Link.main();
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 187:
+     *
      * Which variable declaration is the first line not to compile?
      */
     class Building {}
@@ -1589,11 +1387,153 @@ public class Chapter3Test {
         Building b1 = new Building();
         House    h1 = new House();
         Building b2 = new House();
-        // Building b3 = (House) b1;        OK but, it causes a ClassCastException at runtime.
-        // House h2 = (Building) h1;        COMPILER ERROR ===>>> Required type: House - Provided: Building.
+        // Building b3 = (House) b1;        VALID: but it causes a ClassCastException at runtime.
+        // House h2 = (Building) h1;        ERROR: >>> Required type: House - Provided: Building.
         Building b4 = (Building) b2;
         House    h3 = (House) b2;
-        // House h4 = (House) b1;           OK but, it causes a ClassCastException at runtime.
+        // House h4 = (House) b1;           VALID: but it causes a ClassCastException at runtime.
+
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 191:
+     */
+    interface Tool {
+        void use(int fun);
+    }
+    abstract class Childcare {
+        abstract void use(int fun);
+    }
+    final class Stroller extends Childcare implements Tool {
+        final public void use(int fun) {                    // Declaring a method 'final' in a 'final' class is redundant.
+            int width = 5;
+            class ParkVisit {                               // Declaring a local class 'ParkVisit'.
+                int getValue() {
+                    return width + fun;
+                }
+            }
+            // width = 0;                                      ERROR: 'width' needs to be final or effectively final.
+            System.out.print(new ParkVisit().getValue());   // PRINT: 10
+        }
+    }
+    @Test
+    public void question191() {
+        new Stroller().use(5);
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 194:
+     */
+    static class RainForest extends Forest {
+        // public RainForest(long treeCount) {}      ERROR: There is no default constructor in 'Forest'.
+        public RainForest(long treeCount) {
+            super(treeCount);                     // FIXED: We need to call a no default constructor on 'Forest' class.
+            this.treeCount = treeCount + 1;
+        }
+        public static void main() {
+            System.out.print(new RainForest(5).treeCount);
+        }
+    }
+    static class Forest {
+        public long treeCount;
+        public Forest(long treeCount) {
+            this.treeCount = treeCount + 2;
+        }
+    }
+    @Test
+    public void question194() {
+        RainForest.main();
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 196:
+     *
+     * Given that Short and Integer extend Number directly, what type can be used to fill in the blank in the following
+     * class to allow it to compile?
+     *
+     * E. None of the above.
+     */
+    interface Horn {
+        public Integer play();
+    }
+    abstract class Woodwind {
+        public Short play() {
+            return 3;
+        }
+    }
+    /**
+     * IMPORTANT: Object and Number do not work, because neither is a subclass of Integer nor Short. As stated in the
+     * question text, both Integer and Short extend Number directly, so neither can be a subclass of the other.
+     * Therefore, nothing can fill in the blank that would allow this code to compile.
+     */
+    static final class Saxophone /* extends Woodwind implements Horn */ {
+        // public _______ play() {}
+        // public Short   play() {}     ERROR: clashes with 'Horn';     attempting to use incompatible return type.
+        // public Integer play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
+        // public Number  play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
+        // public Object  play() {}     ERROR: clashes with 'Woodwind'; attempting to use incompatible return type.
+    }
+
+    /**
+     * QUESTION 198
+     */
+    enum Proposition {
+        // TRUE(1)       { String getNickName() { return "RIGHT"; }},           ERROR: attempting to assign weaker access.
+        TRUE(1)    { public String getNickName() { return "RIGHT"; }},
+        FALSE(2)   { public String getNickName() { return "WRONG"; }},
+        // UNKNOWN(3)    { public String getNickName() { return "LOST"; }}      ERROR: semicolon ';' required.
+        UNKNOWN(3) { public String getNickName() { return "LOST"; }};
+
+        public int value;
+        Proposition(int value) {
+            this.value = value;
+        }
+        public int getValue() {
+            return this.value;
+        }
+        protected abstract String getNickName();
+    }
+
+    /**
+     * QUESTION 200
+     */
+    static class Grasshopper extends Hooper {
+        public void move() {
+            hop();                              // p1 NOTE: Only 'Grasshopper' can call 'hop()' method.
+        }
+    }
+    static class HopCounter {
+        public static void main() {
+            var hopper = new Grasshopper();
+            hopper.move();                      // p2
+            // hopper.hop();                    // p3 ERROR: 'hop()' has protected access.
+        }
+    }
+    @Test
+    public void question200() {
+        HopCounter.main();
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 202:
+     *
+     * Given the following class, which method signature could be successfully added to the class as an overloaded
+     * version of the findAverage() method?
+     *
+     * NOTE: 2 methods in the class cannot have the same name and arguments, but a different return type.
+     */
+    public static class Calculations {
+        public Integer findAverage(int sum) { return sum; }
+    //  public Long    findAverage(int sum) {}                             ERROR: "findAverage(int)" is already defined.
+        public Long findAverage(int sum, int divisor) { return 0L; }    // VALID overloaded version.
+    }
+    @Test
+    public void question202() {
+        System.out.println(new Calculations().findAverage(5));
         Assert.assertTrue(true);
     }
 
@@ -1602,18 +1542,40 @@ public class Chapter3Test {
      *
      * Which of the following is a valid method name in Java? (Choose two.)
      *
+     * NOTE: Method names may include underscore (_) character as well as the dollar ($) symbol.
+     * A method name must start with a letter, the dollar ($) symbol, or an underscore (_) character.
      */
     void Go_$Outside$2() {}
     void $sprint() {}
-    // void have-Fun() {}
-    // void 9enjoyTheWeather() {}
+    void _sprint() {}
+    // void 9enjoyTheWeather() {}       ERROR: Method names cannot start with a number.
+    // void new() {}                    ERROR: new is a reserved word in Java.
     // void walk#() {}
-    // void new() {}
-    // Chapter3Test new() {}
+    // void have-Fun() {}
 
     /**
+     * QUESTION 209:
+     *
      * What is the output of the following application?
      */
+    interface Ready {
+        static int first = 2;
+        final short DEFAULT_VALUE = 10;
+        static final GetSet go = new GetSet();  // n1 ===>>> OK
+    }
+    static class GetSet implements Ready {
+        int first = 5;
+        static int second = DEFAULT_VALUE;      // n2 ===>>> OK
+    //  static int test  = first;                  ERROR: Non-static field "first" cannot be referenced from a static context.
+        static int test  = Ready.first;         // OK
+               int test2 = first + 1;
+
+        public static void main() {
+            var r = new Ready() {};
+            System.out.print(r.first);          // n3 PRINT: 2
+            System.out.print(" " + second);     // n4 PRINT: 10
+        }
+    }
     @Test
     public void question209() {
         GetSet.main();
@@ -1621,13 +1583,141 @@ public class Chapter3Test {
     }
 
     /**
+     * QUESTION 212
+     */
+    // class Rotorcraft                    ERROR: Class must be declared abstract or implement abstract method 'fly()'.
+    static abstract class Rotorcraft {
+        protected final int height = 5;
+        abstract int fly();              // NOTE: Method 'fly()' has package-private access
+    }
+    interface CanFly {}
+    static class Helicopter extends Rotorcraft implements CanFly {
+        private int height = 10;
+        protected int fly() {                                // NOTE: It can be protected, but not private.
+            return super.height;
+        }
+        public static void main() {
+            // Helicopter h = (Helicopter) new Rotorcraft();    ERROR: 'Rotorcraft' is abstract; cannot be instantiated.
+        }
+    }
+
+    /**
+     * QUESTION 213
+     *
+     * IMPORTANT: All the interfaces methods without a "private" modifier are implicitly "public"
+     */
+    interface Alex {
+        default void write() { System.out.print("1"); }
+        static void publish() {}
+        void think();
+        private int process() { return 80; }
+    }
+    interface Michael {
+        default void write() { System.out.print("2"); }
+        static void publish() {}
+        void think();
+        private int study() { return 100; }
+    }
+    static class Twins implements Alex, Michael {
+        //     void write() { System.out.print("3"); }          ERROR: attempting to assign weaker access privileges.
+        public void write() { System.out.print("3"); }
+        //     void think() {                                   ERROR: attempting to assign weaker access privileges.
+        public void think() { System.out.print("Thinking"); }
+        static void publish() {}
+    }
+    @Test
+    public void question213() {
+        Twins twins = new Twins();
+        twins.write();
+        twins.think();
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 214
+     */
+    static class Electricity {
+        interface Power {}
+        public static void main() {
+            class Source implements Power {};
+            final class Super extends Source {};
+            // var start = new Super() {};             ERROR: Cannot inherit from final.
+            var end = new Source() {
+            //  static       boolean t = true;      // ERROR: Static declarations in local classes are not supported.
+                static final boolean t = true;
+            };
+        }
+    }
+
+    /**
+     * QUESTION 215
+     */
+    static class ReadyQuestion {
+        protected static int first = 2;
+        private final short DEFAULT_VALUE = 10;             // NOTE: Non-static field variable declaration.
+        private static class GetSet {
+            int first = 5;
+            // static int second = DEFAULT_VALUE;           ERROR: 'DEFAULT_VALUE' cannot be referenced from a static context.
+            static int second = 20;
+        }
+        private GetSet go = new GetSet();
+        public static void main() {
+            ReadyQuestion r = new ReadyQuestion();
+            System.out.print(r.go.first);
+            System.out.print(", " + r.go.second);
+        }
+        public void ReadyQuestion() {
+            // super();                                     ERROR: Call to 'super()' must be first statement in constructor body.
+        }
+    }
+
+    /**
      * What is the output of the following application?
      */
+    static abstract class Ball {
+        protected final int size;
+        public Ball(int size) {
+            this.size = size;
+        }
+    }
+    interface Equipment {}
+    static class SoccerBall extends Ball implements Equipment {
+        public SoccerBall() {
+            super(5);
+        }
+        public Ball get() { return this; }
+        public static void main() {
+            var equipment = (Equipment) (Ball) new SoccerBall().get();
+            System.out.println("Var equipment class: " + equipment.getClass().getSimpleName());  // PRINT: SoccerBall.
+            System.out.println(((SoccerBall) equipment).size);                                   // PRINT: 5.
+        }
+    }
     @Test
     public void question219() {
         SoccerBall.main();
         Assert.assertTrue(true);
     }
 
+    /**
+     * QUESTION 220
+     */
+    interface LongQuestion {    // NOTE: This can be named "Long", but then the class will not compile.
+        Number length();
+    }
+    static class Elephant {
+        public class Trunk implements LongQuestion {
+            public Number length() { return 6; }            // k1
+        }
+        public class MyTrunk extends Trunk {                // k2:  NOTE THAT THIS IS NOT A STATIC CLASS.
+            public Integer length() { return 9; }           // k3
+        }
+        public static void charge() {
+            // System.out.print(new MyTrunk().length());    ERROR: 'this' cannot be referenced from a static context.
+            // MyTrunk obj = new MyTrunk();                 NOTE: If 'MyTrunk' was declared static, then this compiles.
+        }
+        public static void main() {
+            new Elephant().charge();                        // k4
+        }
+    }
 }
 

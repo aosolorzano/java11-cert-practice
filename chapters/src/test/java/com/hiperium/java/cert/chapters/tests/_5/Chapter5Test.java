@@ -117,7 +117,7 @@ public class Chapter5Test {
         var doubles = new double[]{one, two, three};
 
         String[] names = {"Tom", "Dick", "Harry"};
-        // List<String> list = names.asList();         ERROR: asList() its part of Arrays utility class
+        // List<String> list = names.asList();         ERROR: asList() its part of UsingArrays utility class
         List<String> list = Arrays.asList(names);      // OK ===> List.of(names) its another option
         var other = Arrays.asList(names);  // OK
         System.out.println("Initial var list: " + other);

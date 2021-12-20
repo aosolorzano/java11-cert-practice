@@ -6,129 +6,8 @@ import org.junit.Test;
 import java.util.*;
 
 /**
- * QUESTION 17
- */
-class Magazine {
-    private String name;
-    public Magazine(String name) {
-        this.name = name;
-    }
-    public int compareTo(Magazine m) {
-        return name.compareTo(m.name);
-    }
-    public String toString() {
-        return name;
-    }
-}
-
-/**
- * QUESTION 27
- */
-interface Comic<C> {
-    void draw(C c);
-}
-class ComicClass<C> implements Comic<C> {
-    public void draw(C c) {
-        System.out.println("From ComicClass: " + c);
-    }
-}
-class SnoopyClass implements Comic<Snoopy> {
-    public void draw(Snoopy c) {
-        System.out.println("From SnoopyClass: " + c);
-    }
-}
-class SnoopyComic implements Comic<Snoopy> {
-    // public void draw(C c) {}                 ERROR: Cannot resolve symbol 'C'
-    public void draw(Snoopy c) {
-        System.out.println("From SnoopyComic: " + c);
-    }
-}
-class AnotherSnoopy<GenericTypeID> implements Comic<GenericTypeID> {
-    public void draw(GenericTypeID c) {
-        System.out.println("From AnotherSnoopy: " + c);
-    }
-}
-class Snoopy {
-    public static void main(Snoopy snoopy) {
-        Comic<Snoopy> c1 = c -> System.out.println(c);  c1.draw(snoopy);        // PRINT: Snoopy{}
-        Comic<Snoopy> c2 = new ComicClass<>();          c2.draw(snoopy);        // PRINT: From ComicClass: Snoopy{}
-        Comic<Snoopy> c3 = new SnoopyClass();           c3.draw(snoopy);        // PRINT: From SnoopyClass: Snoopy{}
-        Comic<Snoopy> c4 = new SnoopyComic();           c4.draw(snoopy);        // PRINT: From SnoopyComic: Snoopy{}
-    }
-    @Override
-    public String toString() {
-        return "Snoopy{}";
-    }
-}
-
-/**
- * QUESTION 31
- */
-class Wash<T> {
-    T item;
-    public void clean(T item) {
-        System.out.println("Clean " + item);
-    }
-}
-class LaundryTime {
-    public static void main() {
-        // var wash          = new Wash<String>();      OK
-        // var wash          = new Wash<>();            OK
-        // Wash wash         = new Wash();              OK
-        // Wash<String> wash = new Wash<>();            OK
-        Wash wash = new Wash<String>();
-        wash.clean("socks");
-    }
-}
-
-/**
- * QUESTION 56
- */
-class ExtendingGenerics {
-    private static <T extends Collection<U>, U> U add(T list, U element) {
-        list.add(element);
-        return element;
-    }
-    public static void main() {
-        var values = new ArrayList<String>();
-        add(values, "duck");
-        add(values, "duck");
-        add(values, "goose");
-        System.out.println(values);
-    }
-}
-
-/**
- * QUESTION 66
- */
-class MagazineQ implements Comparable<MagazineQ> {
-    private String name;
-    public MagazineQ(String name) {
-        this.name = name;
-    }
-    @Override
-    public int compareTo(MagazineQ m) {
-        return name.compareTo(m.name);
-    }
-    @Override
-    public String toString() {
-        return name;
-    }
-}
-
-/**
- * QUESTION 67
- */
-class WashQ<T extends Collection> {
-    T item;
-    public void clean(T items) {
-        System.out.println("Cleaned " + items.size() + " items");
-    }
-}
-
-
-/**
- * Working with Arrays and Collections:
+ * Working with UsingArrays and Collections:
+ *
  *      - Use generics, including wildcards.
  *      - Use a Java array and List, Set, Map and Deque collections, including convenience methods.
  *      - Sort collections and arrays using Comparator and Comparable interfaces.
@@ -192,8 +71,9 @@ public class Chapter5Test {
     /**
      * What is the output of the following?
      *
-     * NOTE: Method peek() retrieves, but does not remove, the head of the queue represented by this deque, or returns
-     * null if this deque is empty.
+     * offer(): Inserts the specified element at the end of this deque.
+     * peek() : Retrieves, but does not remove, the head of the queue represented by this deque, or returns null if this
+     *          deque is empty.
      */
     @Test
     public void question6() {
@@ -206,20 +86,21 @@ public class Chapter5Test {
     }
 
     /**
+     * QUESTION 12:
+     *
      * What is true of the following code?
      */
+    private void sortAndSearch(String... args) {
+        var one = args[0];
+        Arrays.sort(args);
+        // String result = UsingArrays.binarySearch(args, one);      ERROR: Required type: String - Provided: int
+        int result = Arrays.binarySearch(args, one);
+        System.out.println(result);                          // PRINT: 1
+    }
     @Test
     public void question12() {
         this.sortAndSearch("seed", "flower");
         Assert.assertTrue(true);
-    }
-
-    private void sortAndSearch(String... args) {
-        var one = args[0];
-        Arrays.sort(args);
-        // String result = Arrays.binarySearch(args, one);      ERROR: Required type: String - Provided: int
-        int result = Arrays.binarySearch(args, one);
-        System.out.println(result);                          // PRINT: 1
     }
 
     /**
@@ -246,9 +127,9 @@ public class Chapter5Test {
         list.add(56);
         list.add(3);
         var set = new TreeSet<Integer>(list);
-        System.out.print(set.size());
+        System.out.print(set.size());               // PRINT: 2
         System.out.print(" " );
-        System.out.print(set.iterator().next());
+        System.out.print(set.iterator().next());    // PRINT: 3
         Assert.assertTrue(true);
     }
 
@@ -258,18 +139,17 @@ public class Chapter5Test {
      * D. Four lines contain a compiler error.
      * E. If the compiler errors were fixed, the code would throw an exception.
      */
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void question15() {
-        this.copier();
-    }
-
     private void copier(String... original) {
         // String...copy = original;                ERROR: Unexpected token.
-        // Arrays.linearSort(original);             ERROR: Cannot resolve method 'linearSort' in 'Arrays'.
-        // Arrays.search(original, "");             ERROR: Cannot resolve method 'search' in 'Arrays'.
+        // UsingArrays.linearSort(original);             ERROR: Cannot resolve method 'linearSort' in 'UsingArrays'.
+        // UsingArrays.search(original, "");             ERROR: Cannot resolve method 'search' in 'UsingArrays'.
         // System.out.println(original.size()       ERROR: Cannot resolve method 'size' in 'String'.
         //        + " " + original[0]);
         System.out.println(original[0]);            // Throws java.lang.ArrayIndexOutOfBoundsException
+    }
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void question15() {
+        this.copier();
     }
 
     /**
@@ -288,23 +168,41 @@ public class Chapter5Test {
         chars.add(Character.valueOf('b'));
         chars.set(1, 'c');                      // Replaces the element at the specified position with the new one.
         chars.remove(0);
-        System.out.println(chars.size() + " " + chars.contains('b'));     // PRINT: 1 FALSE
+        System.out.println("chars.size() = " + chars.size());                   // PRINT: 1
+        System.out.println("chars.contains('b') = " + chars.contains('b'));     // PRINT: FALSE
 
         // USING A HASHSET
         var chars2 = new HashSet<Character>();
         chars2.add('a');
         chars2.add(Character.valueOf('b'));
-        // chars2.set(1, 'c');                  ERROR: Cannot resolve method 'set' in 'HashSet'.
+    //  chars2.set(1, 'c');                   ERROR: Cannot resolve method 'set' in 'HashSet'.
         chars2.remove(0);                  // WARN: 'HashSet<Character>' may not contain objects of type 'Integer'.
-        System.out.println(chars2.size() + " " + chars2.contains('b'));     // PRINT: 2 TRUE
+        System.out.println("chars2.size() = " + chars2.size());                 // PRINT: 2
+        System.out.println("chars2.contains('b') = " + chars2.contains('b'));   // PRINT: TRUE
         Assert.assertTrue(true);
     }
 
     /**
+     * QUESTION 17:
+     *
      * What is the output of the following?
+     *
      * E. The code compiles but throws an exception at runtime.
-     *    ClassCastException: class Magazine cannot be cast to class java.lang.Comparable.
+     *
+     * NOTE: Magazine cannot be cast to class java.lang.Comparable, because it does not implement it.
      */
+    class Magazine {
+        private String name;
+        public Magazine(String name) {
+            this.name = name;
+        }
+        public int compareTo(Magazine m) {
+            return name.compareTo(m.name);
+        }
+        public String toString() {
+            return name;
+        }
+    }
     @Test(expected = ClassCastException.class)
     public void question17() {
         var set = new TreeSet<Magazine>();      // WARN: Construction of sorted collection with non-comparable elements.
@@ -334,30 +232,35 @@ public class Chapter5Test {
     @Test
     public void question20() {
         var nums = new HashSet<Long>();
-        nums.add((long) Math.min(5, 3));    // Returns the smaller of two int values.
-        nums.add(Math.round(3.14));         // Returns the closest long to the argument.
-        nums.add((long) Math.pow(4, 2));    // Returns a value (double) of the 1st argument raised to the power of 2nd.
+        nums.add((long) Math.min(5, 3));    // Returns the smaller of two INT values.
+        nums.add(Math.round(3.14));         // Returns the closest LONG to the argument.
+        nums.add((long) Math.pow(4, 2));    // Returns a DOUBLE value of the 1st argument raised to the power of 2nd.
         System.out.println(nums);           // PRINT: [16, 3]
         Assert.assertTrue(true);
     }
 
     /**
      * What is the output of the following?
+     *
+     * offer(): Adds the specified element as the tail (last element) of this list.
+     * poll() : Retrieves and removes the head (first element) of this list.
+     * push() : Inserts the element at the front of this list. This method is equivalent to addFirst.
      */
     @Test
     public void question21() {
         var x = new LinkedList<Integer>();
-        x.offer(18);        // Adds the specified element as the tail (last element) of this list.
+        x.offer(18);
         x.offer(5);
-        x.push(13);         // Inserts the element at the front of this list. This method is equivalent to addFirst.
-
-        // poll(): Retrieves and removes the head (first element) of this list.
-        System.out.println(x.poll() + " " + x.poll());                      // PRINT: 13 18
+        x.push(13);
+        System.out.println(x.poll() + " " + x.poll()); // PRINT: 13 18
         Assert.assertTrue(true);
     }
 
     /**
      * What does the following output?
+     *
+     * mismatch(): Finds and returns the index of the first mismatch between two Object arrays, otherwise return -1
+     * if no mismatch is found or the arrays are the same.
      */
     @Test
     public void question26() {
@@ -365,8 +268,6 @@ public class Chapter5Test {
         var mac = new String[]{"Mac", "Linux", "Windows"};
         var search = Arrays.binarySearch(linux, "Linux");
 
-        // mismatch(): Finds and returns the index of the first mismatch between two Object arrays, otherwise return -1
-        // if no mismatch is found.
         var mismatch1 = Arrays.mismatch(linux, mac);
         var mismatch2 = Arrays.mismatch(mac, mac);
 
@@ -375,8 +276,46 @@ public class Chapter5Test {
     }
 
     /**
+     * QUESTION 27:
+     *
      * Which line in the main() method doesn't compile or points to a class that doesn't compile?
      */
+    interface Comic<C> {
+        void draw(C c);
+    }
+    static class ComicClass<C> implements Comic<C> {
+        public void draw(C c) {
+            System.out.println("From ComicClass: " + c);
+        }
+    }
+    static class SnoopyClass implements Comic<Snoopy> {     // We are using 'Snoopy' class as generic parameter type.
+        public void draw(Snoopy c) {
+            System.out.println("From SnoopyClass: " + c);
+        }
+    }
+    static class SnoopyComic implements Comic<Snoopy> {     // We are using 'Snoopy' class as generic parameter type.
+    //  public void draw(C c) {}                            ERROR: Cannot resolve symbol 'C'.
+        public void draw(Snoopy c) {
+            System.out.println("From SnoopyComic: " + c);
+        }
+    }
+    static class AnotherSnoopy<GenericTypeID> implements Comic<GenericTypeID> {
+        public void draw(GenericTypeID c) {
+            System.out.println("From AnotherSnoopy: " + c);
+        }
+    }
+    static class Snoopy {
+        public static void main(Snoopy snoopy) {
+            Comic<Snoopy> c1 = c -> System.out.println(c);  c1.draw(snoopy);    // PRINT: Snoopy{}
+            Comic<Snoopy> c2 = new ComicClass<>();          c2.draw(snoopy);    // PRINT: From ComicClass: Snoopy{}
+            Comic<Snoopy> c3 = new SnoopyClass();           c3.draw(snoopy);    // PRINT: From SnoopyClass: Snoopy{}
+            Comic<Snoopy> c4 = new SnoopyComic();           c4.draw(snoopy);    // PRINT: From SnoopyComic: Snoopy{}
+        }
+        @Override
+        public String toString() {
+            return "Snoopy{}";
+        }
+    }
     @Test
     public void question27() {
         Snoopy snoopy = new Snoopy();
@@ -397,7 +336,7 @@ public class Chapter5Test {
         String[] array = {"Natural History", "Science"};
         // var museums = List.of(array);                            Throws RTE: Returns an unmodifiable list.
         // var museums = List.of("Natural History", "Science");     Throws RTE: Returns an unmodifiable list.
-        // var museums = Arrays.asList(array);                      OK: Returns a fixed-size list backed by the array.
+        // var museums = UsingArrays.asList(array);                      OK: Returns a fixed-size list backed by the array.
         var museums = Arrays.asList("Natural History", "Science");
         museums.set(0, "Art");
         System.out.println(museums.contains("Art"));                // PRINT: true
@@ -405,8 +344,26 @@ public class Chapter5Test {
     }
 
     /**
+     * QUESTION 31:
+     *
      * Which option cannot fill in the blank to print Clean socks?
      */
+    static class Wash<T> {
+        T item;
+        public void clean(T item) {
+            System.out.println("Clean " + item);
+        }
+    }
+    static class LaundryTime {
+        public static void main() {
+        //  var wash          = new Wash<String>();      OK
+        //  var wash          = new Wash<>();            OK
+        //  Wash wash         = new Wash();              OK
+        //  Wash<String> wash = new Wash<>();            OK
+            Wash wash         = new Wash<String>();
+            wash.clean("socks");
+        }
+    }
     @Test
     public void question31() {
         LaundryTime.main();
@@ -416,21 +373,23 @@ public class Chapter5Test {
     /**
      * Fill in the blank so the code prints gamma.
      *
-     *      var list = Arrays.asList("alpha", "beta", "gamma");
+     *      var list = UsingArrays.asList("alpha", "beta", "gamma");
      *      Collections.sort(list, __________);
      *      System.out.println(list.get(0));
      */
     @Test
     public void question33() {
         var list = Arrays.asList("alpha", "beta", "gamma");
-        Collections.sort(list, (s, t) -> t.compareTo(s));
-        // Collections.sort(list, Comparator.comparing((String s) -> s.charAt(0)).reversed());
+    //  Collections.sort(list, (s, t) -> t.compareTo(s));
+        Collections.sort(list, Comparator.comparing((String s) -> s.charAt(0)).reversed());
         System.out.println(list.get(0));
         Assert.assertTrue(true);
     }
 
     /**
      * How many of the following are legal declarations?
+     *
+     * NOTE: When creating an array object, a set of elements or size is required.
      */
     @Test
     public void question34() {
@@ -448,7 +407,7 @@ public class Chapter5Test {
     @Test
     public void question36() {
         List<Integer> list = List.of(1, 1, 2);
-        // Set<Integer> set = Set.of(list);     ERROR: Required type: Set<Integer> - Provided: Set<List<Integer>>.
+    //  Set<Integer> set = Set.of(list);        ERROR: Required type: Set<Integer> - Provided: Set<List<Integer>>.
         Set<Integer> set = Set.copyOf(list);
         System.out.println(set);                // PRINT: [1, 2]
         Assert.assertTrue(true);
@@ -475,7 +434,7 @@ public class Chapter5Test {
         names.put("peter", "pan");
         names.put("wendy", "darling");
         var first = names.entrySet();  // line x1
-        // System.out.println(first.getKey());                             line x2: Cannot resolve method 'getKey' in 'Set'.
+        // System.out.println(first.getKey());                          line x2: Cannot resolve method 'getKey' in 'Set'.
         for (Map.Entry<String, String> entry : first) {
             System.out.println(entry);                      // PRINT: peter=pan wendy=darling
             System.out.println(entry.getKey());             // PRINT: peter wendy
@@ -486,6 +445,9 @@ public class Chapter5Test {
 
     /**
      * Which of these elements are in the output of the following?
+     *
+     * pool(): Retrieves and removes the head of the queue represented by this deque (the first element of this
+     * deque), or returns null if this deque is empty.
      */
     @Test
     public void question39() {
@@ -544,9 +506,30 @@ public class Chapter5Test {
         Comparator<Integer> c = (x, y) -> y - x;
         var ints = Arrays.asList(3, 1, 4);
         Collections.sort(ints, c);
-        System.out.println("Ordered array: " + ints);
-        System.out.println(Collections.binarySearch(ints, 4));  // PRINT: -1
+        System.out.println("Ordered array: " + ints);               // PRINT: [4, 3, 1]
+        System.out.println(Collections.binarySearch(ints, 4));  // PRINT: -4
         Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 49:
+     *
+     * What is the result of the following when called as java Binary.java?
+     *
+     * B. []
+     * D. The code throws an ArrayIndexOutOfBoundsException
+     */
+    public static class Binary {
+        public static void main(String... args) {
+            System.out.println("args = " + Arrays.toString(args));              // PRINT: []
+            Arrays.sort(args);
+            System.out.println("ordered args = " + Arrays.toString(args));      // PRINT: []
+            System.out.println(args[0]);
+        }
+    }
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void question49() {
+        Binary.main();
     }
 
     /**
@@ -589,14 +572,44 @@ public class Chapter5Test {
     }
 
     /**
+     * QUESTION 56:
+     *
      * Which fills in the blank in the method signature to allow this code to compile?
      *
      * C. T extends Collection<U>
      */
+    static class ExtendingGenerics {
+        private static <T extends Collection<U>, U> U add(T list, U element) {
+            list.add(element);
+            return element;
+        }
+        public static void main() {
+            var values = new ArrayList<String>();
+            add(values, "duck");
+            add(values, "duck");
+            add(values, "goose");
+            System.out.println(values);
+        }
+    }
     @Test
     public void question56() {
         ExtendingGenerics.main();
         Assert.assertTrue(true);
+    }
+
+    /**
+     * Which is the first line to prevent this code from compiling and running without error?
+     *
+     * A. Line r1.
+     */
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void question58() {
+    //  char[][] ticTacToe = new char[3,3];                     // r1: Does not compile.
+        char[][] ticTacToe = new char[3][3];                    // r1
+        ticTacToe[1][3] = 'X';                                  // r2
+        ticTacToe[2][2] = 'X';
+        ticTacToe[3][1] = 'X';
+        System.out.println(ticTacToe.length + " in a row!");    // r3
     }
 
     /**
@@ -609,13 +622,85 @@ public class Chapter5Test {
         list.add("Boston");
         list.add("San Francisco");
         list.removeIf(a -> a.length() > 10);
-        System.out.println(list.size());        // PRINT: 2
+        System.out.println("list.size() = " + list.size());     // PRINT: 2
+        System.out.println("list = " + list);                   // PRINT: [Austin, Boston]
         Assert.assertTrue(true);
     }
 
     /**
+     * QUESTION 60:
+     *
+     * What happens when calling the following method with a non‐null and non‐empty array?
+     */
+    public static void addStationName(String[] names) {
+    //  names[names.length]     = "Times Square";                   // Throws ArrayIndexOutOfBoundsException
+        names[names.length - 1] = "Fixed";
+        System.out.println("names = " + Arrays.toString(names));    // PRINT: [Fixed]
+    }
+    @Test
+    public void question60() {
+        addStationName(new String[]{"test"});
+        Assert.assertTrue(true);
+    }
+
+    /**
+     * QUESTION 63:
+     *
+     * Which of the following fills in the blank so this code compiles?
+     *
+     *      getExceptions(Collection<___> coll) {}
+     *
+     * F. None of the above.
+     *
+     * NOTE: Review question 80 for a more perspective.
+     */
+    public static void option1(Collection<? extends RuntimeException> coll) {
+    //  coll.add(new RuntimeException());   ERROR >>> Required type: <? extends RuntimeException> Provided: RTE.
+    //  coll.add(new Exception());          ERROR >>> Required type: <? extends RuntimeException> Provided: Exception.
+    }
+
+    // NOTE: Broader types than the generic type are not allowed to be added to the list.
+    public static void option2(Collection<? super RuntimeException> coll) {
+        coll.add(new RuntimeException());
+    //  coll.add(new Exception());              ERROR >>> Required type: <? super RuntimeException> Provided: Exception.
+    }
+    @Test
+    public void question63() {
+        List<IllegalArgumentException> list1 = new ArrayList<>();
+        list1.add(new IllegalArgumentException("Exception 1"));
+        List<RuntimeException> list2 = new ArrayList<>();
+        list2.add(new RuntimeException("Exception 1"));
+        List<Exception> list3 = new ArrayList<>();
+        list3.add(new Exception("Exception 1"));
+
+        option1(list1);     // OK >>> List<IllegalArgumentException>
+        option1(list2);     // OK >>> List<RuntimeException>
+    //  option1(list3);     ERROR >>> Required type: <? super RuntimeException> Provided: List<Exception>.
+    //  option2(list1);     ERROR >>> Required type: <? super RuntimeException> Provided: List<IllegalArgumentException>.
+        option2(list2);     // OK >>> List<RuntimeException>
+        option2(list3);     // OK >>> List<Exception>
+        Assert.assertTrue(true);
+    }
+
+    /**
+     *  QUESTION 66:
+     *
      * What is the output of the following?
      */
+    static class MagazineQ implements Comparable<MagazineQ> {
+        private String name;
+        public MagazineQ(String name) {
+            this.name = name;
+        }
+        @Override
+        public int compareTo(MagazineQ m) {
+            return name.compareTo(m.name);
+        }
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
     @Test
     public void question66() {
         var set = new TreeSet<MagazineQ>();
@@ -628,14 +713,24 @@ public class Chapter5Test {
     }
 
     /**
+     * QUESTION 67:
+     *
      * Which options can fill in the blanks to print Cleaned 2 items?
      *
      * B. extends, List
      */
+    static class WashQ<T extends Collection> {
+        T item;
+        public void clean(T items) {
+            System.out.println("Cleaned " + items.size() + " items");
+        }
+    }
+    // NOTE: ArrayList implements List, but not extend it.
+    // However, List extends Collection.
     @Test
     public void question67() {
-        WashQ<List> wash = new WashQ<List>();
-        // WashQ<List> wash = new WashQ<ArrayList>();   ERROR => Required type: WashQ<List> - Provided: WashQ<ArrayList>.
+        WashQ<List> wash = new WashQ<>();
+    //  WashQ<List> wash = new WashQ<ArrayList>();   ERROR >>> Required type: WashQ<List>, Provided: WashQ<ArrayList>.
         wash.clean(List.of("sock", "tie"));
         Assert.assertTrue(true);
     }
@@ -654,24 +749,34 @@ public class Chapter5Test {
      * What is the output of the following?
      *
      * E. The code does not compile.
+     *
+     * NOTE: "addFirst()" and "addLast()" are methods of the Deque interface. On the other hand ArrayDeque implements
+     * Queue and Deque, but in this example, var "q" it is of type Queue, and that interface does not have "addFirst()"
+     * and "addLast()" methods.
+     *
+     * add()  : Inserts the specified element into this queue.
+     * offer(): Inserts the specified element into this queue.
+     * peek() : Retrieves, but does not remove, the head of this queue, or returns null if this queue is empty.
      */
     @Test
     public void question70() {
         Queue<String> q = new ArrayDeque<>();
         q.add("snowball");
-        // q.addLast("sugar");                  ERROR: Cannot resolve method 'addLast' in 'Queue'.
-        // q.addFirst("minnie");                ERROR: Cannot resolve method 'addFirst' in 'Queue'.
+        // q.addLast("sugar");                              ERROR: Cannot resolve method 'addLast' in 'Queue'.
+        // q.addFirst("minnie");                            ERROR: Cannot resolve method 'addFirst' in 'Queue'.
         q.offer("sugar");
         q.add("minnie");
-        System.out.println("Queue: " + q);      // PRINT: [snowball, sugar, minnie]
-        System.out.println(q.peek() + " " + q.peek() + " " + q.size());       // PRINT: 'snowball' 'snowball' '3'
+        System.out.println("Queue: " + q);                  // PRINT: [snowball, sugar, minnie]
+        System.out.println("q.peek() = " + q.peek());       // PRINT: snowball
+        System.out.println("q.peek() = " + q.peek());       // PRINT: snowball
+        System.out.println("q.size() = " + q.size());       // PRINT: 3
         Assert.assertTrue(true);
     }
 
     /**
      * Fill in the blank so the code prints gamma.
      *
-     *      var list = Arrays.asList("alpha", "beta", "gamma");
+     *      var list = UsingArrays.asList("alpha", "beta", "gamma");
      *      Collections.sort(list, ___________________________);
      *      System.out.println(list.get(0));
      */
@@ -680,6 +785,10 @@ public class Chapter5Test {
         var list = Arrays.asList("alpha", "beta", "gamma");
         Collections.sort(list, Comparator.comparing(String::length).thenComparing(s -> s.charAt(0)).reversed());
         System.out.println(list.get(0));
+
+    //  COMPARATOR ERROR:
+    //  Comparator.comparing(String::length).andCompare(s -> s.charAt(0));      Cannot resolve method 'andCompare'.
+    //  Comparator.comparing(String::length).thenCompare(s -> s.charAt(0));     Cannot resolve method 'thenCompare'.
 
         Collections.sort(list, Comparator.comparing(String::length));
         System.out.println("Ordered by length: " + list);               // PRINT: [beta, alpha, gamma]
@@ -710,12 +819,7 @@ public class Chapter5Test {
     }
 
     /**
-     * What is true of the following code? (Choose two.)
-     *
-     *      private static void sortAndSearch(String… args) {
-     *          var one = args[1];
-     *          Comparator<String> comp = (x, y) -> _______________;
-     *      }
+     * What is true of the following code?
      *
      * C. If the blank contains x.compareTo(y), then the code outputs 0.
      * D. If the blank contains ‐y.compareTo(x), then the code outputs 0.
@@ -724,12 +828,6 @@ public class Chapter5Test {
      * Reversing the order of the variables or adding a negative sign sorts in descending order makes both a
      * complicated way of sorting in ascending order.
      */
-    @Test
-    public void question75() {
-        this.sortAndSearch75("seed", "flower");
-        Assert.assertTrue(true);
-    }
-
     private void sortAndSearch75(String... args) {
         var one = args[1];
         Comparator<String> comp = (x, y) -> -y.compareTo(x);        // Is the same as: (x, y) -> x.compareTo(y);
@@ -737,6 +835,11 @@ public class Chapter5Test {
         System.out.println("Ordered: " + Arrays.toString(args));    // [flower, seed]
         var result = Arrays.binarySearch(args, one, comp);      // PRINT: 0
         System.out.println(result);
+    }
+    @Test
+    public void question75() {
+        this.sortAndSearch75("seed", "flower");
+        Assert.assertTrue(true);
     }
 
     /**
@@ -783,12 +886,31 @@ public class Chapter5Test {
     /**
      * Which of the following fills in the blank so this code compiles?
      *
+     *      getExceptions(Collection<___> coll)
+     *
      * C. ? super Exception
      */
-    public void question80(Collection<? super Exception> coll) {
+    public void question80Option1(Collection<? super Exception> coll) {
         coll.add(new RuntimeException());
         coll.add(new Exception());
     }
+    public void question80Option2(Collection<? super RuntimeException> coll) {
+        coll.add(new RuntimeException());
+    //  coll.add(new Exception());          ERROR >>> Required type: <? super RuntimeException> Provided: Exception.
+    }
+    // NOTE: Broader types than the generic type are not allowed to be added to the list.
+    @Test
+    public void question80() {
+        List<Exception> list1 = new ArrayList<>();
+        list1.add(new Exception("Exception 1"));
+        List<RuntimeException> list2 = new ArrayList<>();
+        list2.add(new RuntimeException("Exception 2"));
 
+        question80Option1(list1);
+    //  question80Option1(list2);  ERROR >>> Required type: Collection<? super Exception> -- Provided: List<RuntimeException>.
+        question80Option2(list1);
+        question80Option2(list2);
 
+        Assert.assertTrue(true);
+    }
 }

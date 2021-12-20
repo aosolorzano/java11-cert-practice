@@ -4,21 +4,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Controlling Program Flow
- * Create and use loops, if/else, and switch statements
+ * Controlling Program Flow:
+ *
+ *      - Create and use loops, if/else, and switch statements
  */
 public class Chapter2Test {
 
     /**
      * What is output by the following?
-     * <p>
-     * R./ The code runs indefinitely.
+     *
+     * F. None of the above.
      */
     public void question3() {
         int m = 0, n = 0;
         while (m < 5) {
             n++;
-            if (m == 3) continue;
+            if (m == 3) continue;   // NOTE: This line make the code to run indefinitely whe "m" gets the value of 3.
             switch (m) {
                 case 0:
                 case 1:
@@ -26,7 +27,7 @@ public class Chapter2Test {
                 default:
                     n++;
             }
-            m++;
+            m++;    // NOTE: When "m" gets the value of 3, the loop continues with "m" never incremented again.
         }
         System.out.println("m = " + m + ", n = " + n);
     }
@@ -36,7 +37,7 @@ public class Chapter2Test {
      */
     @Test
     public void question4() {
-        // var quest = new int[]{2};       VALID: an int array with 1 element of value 3.
+        // var quest = new int[]{2};       VALID: an int array with 1 element of value 2.
         // var quest = new int[2]{1,2};    ERROR: cannot create a fixed array and initialized it at the same time.
         // var quest = List.of(3);         VALID: an unmodifiable List of integers with 1 element of value 3.
         // var quest = new Integer[4];     VALID: an array of Integer objects with 3 null elements.
@@ -53,14 +54,13 @@ public class Chapter2Test {
     @Test
     public void question8() {
         var plan = 1;
-        plan = plan++ + --plan;
-        System.out.println("plan = " + plan);   // PRINTS: 2
+        plan = plan++ + --plan;                             // First execute the plan++, then --plan, and finally sum.
+        System.out.println("plan = " + plan);               // PRINT: 2
         if (plan == 1) {
             System.out.print("Plan A");
         } else {
             if (plan == 2) System.out.print("Plan B");
-        }
-        // } else System.out.print("Plan C"); }    COMPILATION ERROR: An 'else' without 'if'
+        } // else System.out.print("Plan C"); }             ERROR: An 'else' without 'if'.
         Assert.assertTrue(true);
     }
 
