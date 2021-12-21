@@ -41,9 +41,9 @@ import java.util.concurrent.*;
  *     ExecutionException                   |                                                                           |
  * *****************************************|***************************************************************************|
  *
- * The "execute()" and "submit()" methods are nearly identical when applied to Runnable expressions. The "submit()" method
- * has the obvious advantage of doing the same thing execute() does, but with a return object that can be used to track
- * the result.
+ * The "execute()" and "submit()" methods are nearly identical when applied to Runnable expressions. The "submit()"
+ * method has the obvious advantage of doing the same thing "execute()" does, but with a return object that can be used
+ * to track the result.
  */
 public class ConcurrencyAPI {
 
